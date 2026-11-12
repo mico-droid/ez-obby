@@ -4,6 +4,13 @@
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-54JJ46D9');</script>
 <!-- End Google Tag Manager -->
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#0ea5e9">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="EZ Obby">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <title>EZ Obby (WebRTC)</title>
@@ -181,6 +188,9 @@
   <div class="card">
     <h1 class="logo">EZ <span>Obby</span></h1>
     <p class="sub" id="subLine"></p>
+    <button id="pwaBtn" class="hidden" style="background:linear-gradient(90deg,#f59e0b,#ef4444);color:#fff;font-weight:900;font-size:18px;border-radius:16px;padding:12px 18px;margin:6px auto;box-shadow:0 5px 0 #b45309;animation:pwaPulse 1.6s ease-in-out infinite"></button>
+    <div id="pwaIos" class="hidden" style="background:#fff7ed;border:3px solid #f59e0b;border-radius:14px;padding:10px;margin:6px auto;font-weight:700;color:#7c2d12;font-size:14px;max-width:420px"></div>
+    <style>@keyframes pwaPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}</style>
     <div class="langs" id="langs"></div>
     <div class="top">
       <div id="pvWrap"><canvas id="preview"></canvas></div>
@@ -441,15 +451,15 @@ const RIDDLES=[
 ];
 Object.assign(T.pt,{mp:"<b>Multiplayer:</b> crie uma sala e mande o link para até 3 amigos — ninguém precisa de conta. Encoste correndo em alguém para empurrar!",
   mpSteps:["Toque em <b>Criar sala</b>: aparece um código de 4 letras.","Mande o link (ou o código) para até 3 amigos. Quem abrir o link entra direto na sala.","Todos escolhem o mesmo modo: <b>Parkour</b> ou <b>Tabuada multiplayer</b> e tocam em Começar.","Funciona melhor no mesmo Wi-Fi ou em redes de casa. Se quem criou a sala sair, a sala acaba."],
-  rtcCreate:"➕ Criar sala",rtcLbl1:"1️⃣ Quer chamar amigos? Crie uma sala:",rtcLbl2:"2️⃣ Recebeu um código? Digite aqui:",rtcBigLbl:"🔑 CÓDIGO DA SALA — fale para o seu amigo:",rtcBigN:"👥 {n}/4 jogadores na sala",rtcJoin:"🚪 Entrar",rtcCodePh:"CÓDIGO",rtcRoom:"✅ Sala {c} · {n}/4 jogadores",rtcHost:" (você criou)",rtcFull:"❌ Sala cheia (máximo 4).",rtcNotFound:"❌ Sala não encontrada. Confira o código.",
+  rtcCreate:"➕ Criar sala",pwaInstall:"📲 Instalar o jogo no celular",pwaIos:"No iPhone: toque em Compartilhar (□↑) e depois em \"Adicionar à Tela de Início\".",rtcLbl1:"1️⃣ Quer chamar amigos? Crie uma sala:",rtcLbl2:"2️⃣ Recebeu um código? Digite aqui:",rtcBigLbl:"🔑 CÓDIGO DA SALA — fale para o seu amigo:",rtcBigN:"👥 {n}/4 jogadores na sala",rtcJoin:"🚪 Entrar",rtcCodePh:"CÓDIGO",rtcRoom:"✅ Sala {c} · {n}/4 jogadores",rtcHost:" (você criou)",rtcFull:"❌ Sala cheia (máximo 4).",rtcNotFound:"❌ Sala não encontrada. Confira o código.",
   rtcFail:"⚠️ Não consegui conectar. Esta rede pode bloquear conexões diretas.",rtcHostLeft:"⚠️ Quem criou a sala saiu. A sala acabou.",rtcLeave:"Sair da sala",rtcLeft:"Você saiu da sala.",rtcConnecting:"⏳ Conectando...",waText:"Bora jogar EZ Obby comigo! 🎮"});
 Object.assign(T.en,{mp:"<b>Multiplayer:</b> create a room and send the link to up to 3 friends — nobody needs an account. Run into someone to push them!",
   mpSteps:["Tap <b>Create room</b>: a 4-letter code shows up.","Send the link (or the code) to up to 3 friends. Whoever opens the link joins the room directly.","Everyone picks the same mode: <b>Parkour</b> or <b>Multiplayer times tables</b> and taps Start.","Works best on the same Wi-Fi or home networks. If the room creator leaves, the room ends."],
-  rtcCreate:"➕ Create room",rtcLbl1:"1️⃣ Want to call friends? Create a room:",rtcLbl2:"2️⃣ Got a code? Type it here:",rtcBigLbl:"🔑 ROOM CODE — tell your friend:",rtcBigN:"👥 {n}/4 players in the room",rtcJoin:"🚪 Join",rtcCodePh:"CODE",rtcRoom:"✅ Room {c} · {n}/4 players",rtcHost:" (you created it)",rtcFull:"❌ Room is full (max 4).",rtcNotFound:"❌ Room not found. Check the code.",
+  rtcCreate:"➕ Create room",pwaInstall:"📲 Install the game",pwaIos:"On iPhone: tap Share (□↑) then \"Add to Home Screen\".",rtcLbl1:"1️⃣ Want to call friends? Create a room:",rtcLbl2:"2️⃣ Got a code? Type it here:",rtcBigLbl:"🔑 ROOM CODE — tell your friend:",rtcBigN:"👥 {n}/4 players in the room",rtcJoin:"🚪 Join",rtcCodePh:"CODE",rtcRoom:"✅ Room {c} · {n}/4 players",rtcHost:" (you created it)",rtcFull:"❌ Room is full (max 4).",rtcNotFound:"❌ Room not found. Check the code.",
   rtcFail:"⚠️ Couldn't connect. This network may block direct connections.",rtcHostLeft:"⚠️ The room creator left. The room ended.",rtcLeave:"Leave room",rtcLeft:"You left the room.",rtcConnecting:"⏳ Connecting...",waText:"Come play EZ Obby with me! 🎮"});
 Object.assign(T.es,{mp:"<b>Multijugador:</b> crea una sala y envía el enlace a hasta 3 amigos — nadie necesita cuenta. ¡Choca corriendo con alguien para empujarlo!",
   mpSteps:["Toca <b>Crear sala</b>: aparece un código de 4 letras.","Envía el enlace (o el código) a hasta 3 amigos. Quien abra el enlace entra directo a la sala.","Todos eligen el mismo modo: <b>Parkour</b> o <b>Tablas multijugador</b> y tocan Empezar.","Funciona mejor en el mismo Wi-Fi o en redes de casa. Si quien creó la sala se va, la sala termina."],
-  rtcCreate:"➕ Crear sala",rtcLbl1:"1️⃣ ¿Quieres llamar amigos? Crea una sala:",rtcLbl2:"2️⃣ ¿Te dieron un código? Escríbelo aquí:",rtcBigLbl:"🔑 CÓDIGO DE LA SALA — díselo a tu amigo:",rtcBigN:"👥 {n}/4 jugadores en la sala",rtcJoin:"🚪 Entrar",rtcCodePh:"CÓDIGO",rtcRoom:"✅ Sala {c} · {n}/4 jugadores",rtcHost:" (la creaste tú)",rtcFull:"❌ Sala llena (máximo 4).",rtcNotFound:"❌ Sala no encontrada. Revisa el código.",
+  rtcCreate:"➕ Crear sala",pwaInstall:"📲 Instalar el juego",pwaIos:"En iPhone: toca Compartir (□↑) y luego \"Agregar a inicio\".",rtcLbl1:"1️⃣ ¿Quieres llamar amigos? Crea una sala:",rtcLbl2:"2️⃣ ¿Te dieron un código? Escríbelo aquí:",rtcBigLbl:"🔑 CÓDIGO DE LA SALA — díselo a tu amigo:",rtcBigN:"👥 {n}/4 jugadores en la sala",rtcJoin:"🚪 Entrar",rtcCodePh:"CÓDIGO",rtcRoom:"✅ Sala {c} · {n}/4 jugadores",rtcHost:" (la creaste tú)",rtcFull:"❌ Sala llena (máximo 4).",rtcNotFound:"❌ Sala no encontrada. Revisa el código.",
   rtcFail:"⚠️ No pude conectar. Esta red puede bloquear conexiones directas.",rtcHostLeft:"⚠️ Quien creó la sala salió. La sala terminó.",rtcLeave:"Salir de la sala",rtcLeft:"Saliste de la sala.",rtcConnecting:"⏳ Conectando...",waText:"¡Ven a jugar EZ Obby conmigo! 🎮"});
 const CHAT=[{e:"👋"},{e:"😂"},{e:"🔥"},{e:"😱"},{e:"😎"},{e:"🥳"},{e:"😡"},{e:"👍"},{k:"c_hi"},{k:"c_wait"},{k:"c_gg"},{k:"c_go"},{k:"c_help"},{k:"c_pass"},{k:"c_close"},{k:"c_thx"}];
 function store(k,v){try{localStorage.setItem(k,v)}catch(e){}}
@@ -1970,7 +1980,18 @@ room.onConnection(c=>{netState=c?"online":"offline";updateNetLabel();});
 room.onPeers(onPeers);
 setTimeout(()=>{sendLook();sendState(true);sendInv();sendFx();},0);
 let rtcLast="";
-function rtcTexts(){
+let pwaEvt=null;
+const isStandalone=()=>matchMedia("(display-mode: standalone)").matches||matchMedia("(display-mode: fullscreen)").matches||navigator.standalone===true;
+const isIOS=/iphone|ipad|ipod/i.test(navigator.userAgent)||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1);
+function pwaTexts(){const b=$("pwaBtn"),i=$("pwaIos");if(!b)return;b.textContent=t("pwaInstall");i.textContent=t("pwaIos");
+  const show=!isStandalone()&&(pwaEvt||isIOS);b.classList.toggle("hidden",!show);if(!show)i.classList.add("hidden");}
+if("serviceWorker" in navigator&&location.protocol.startsWith("http"))setTimeout(()=>navigator.serviceWorker.register("sw.js").catch(()=>{}),1500);
+window.addEventListener("beforeinstallprompt",e=>{e.preventDefault();pwaEvt=e;pwaTexts();});
+window.addEventListener("appinstalled",()=>{pwaEvt=null;pwaTexts();try{track("ez_pwa_installed");}catch(e){}});
+setTimeout(()=>{$("pwaBtn").onclick=async()=>{Snd.init();Snd.play("click");
+  if(pwaEvt){pwaEvt.prompt();const r=await pwaEvt.userChoice.catch(()=>null);if(r&&r.outcome==="accepted")track("ez_pwa_installed");pwaEvt=null;pwaTexts();}
+  else if(isIOS)$("pwaIos").classList.toggle("hidden");};pwaTexts();},0);
+function rtcTexts(){pwaTexts();
   $("rtcCreate").textContent=t("rtcCreate");$("rtcJoin").textContent=t("rtcJoin");$("rtcCode").placeholder=t("rtcCodePh");$("rtcLeave").textContent=t("rtcLeave");
   GAME_URL=RTC.code?GAME_BASE+"?sala="+RTC.code:GAME_BASE;
   $("waBtn").href="https://wa.me/?text="+encodeURIComponent(t("waText")+(RTC.code?" ("+RTC.code+") ":" ")+GAME_URL);
