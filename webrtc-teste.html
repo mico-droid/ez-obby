@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>EZ Obby — Laboratório WebRTC</title>
+<style>
+  *{box-sizing:border-box}
+  body{margin:0;font-family:system-ui,sans-serif;background:#0f172a;color:#e2e8f0;touch-action:none}
+  header{padding:10px 14px;background:#1e293b;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+  header h1{font-size:18px;margin:0;color:#fde047}
+  #lobby,#game{padding:14px;max-width:760px;margin:0 auto}
+  input,button{font:inherit;border-radius:10px;border:none;padding:10px 12px}
+  input{background:#fff;color:#111;width:150px}
+  button{background:#2563eb;color:#fff;font-weight:700;cursor:pointer}
+  button.sec{background:#334155}
+  .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:8px 0}
+  .hidden{display:none!important}
+  #code{font-size:34px;font-weight:800;letter-spacing:6px;color:#22c55e}
+  canvas{width:100%;max-width:720px;aspect-ratio:16/10;background:#14532d;border-radius:14px;display:block;margin:8px 0}
+  table{border-collapse:collapse;width:100%;font-size:14px}
+  td,th{border-bottom:1px solid #334155;padding:5px 6px;text-align:left}
+  .ok{color:#22c55e}.warn{color:#f59e0b}.bad{color:#ef4444}
+  #log{font:12px ui-monospace,monospace;background:#020617;border-radius:10px;padding:8px;height:130px;overflow:auto;white-space:pre-wrap}
+  .note{font-size:13px;color:#94a3b8;line-height:1.4}
+</style>
+</head>
+<body>
+<header><h1>🧪 Laboratório WebRTC (EZ Obby)</h1><span class="note">teste de multiplayer direto entre aparelhos — máx. 4 por sala</span></header>
+
+<div id="lobby">
+  <div class="row"><label>Apelido <input id="nm" maxlength="12" placeholder="Jogador"></label></div>
+  <div class="row"><button id="createBtn">➕ Criar sala</button></div>
+  <div class="row"><input id="joinCode" maxlength="4" placeholder="CÓDIGO" style="text-transform:uppercase;width:120px"><button id="joinBtn" class="sec">🚪 Entrar na sala</button></div>
+  <p class="note">Quem cria a sala vira o <b>anfitrião</b>: os outros 3 se conectam direto no aparelho dele, e ele repassa as posições para todos. Se o anfitrião sair, a sala acaba.</p>
+  <div id="lobbyMsg" class="warn"></div>
+</div>
+
+<div id="game" class="hidden">
+  <div class="row"><span>Sala:</span><span id="code"></span><span id="role" class="note"></span><button id="waveBtn" class="sec">👋 Acenar</button><button id="leaveBtn" class="sec">Sair</button></div>
+  <canvas id="cv" width="720" height="450"></canvas>
+  <p class="note">Mova com WASD/setas ou arrastando o dedo no campo.</p>
+  <table><thead><tr><th>Jogador</th><th>Ping</th><th>Tipo de conexão</th></tr></thead><tbody id="tbl"></tbody></table>
+  <p class="note"><b>direta</b> = os aparelhos se acharam sozinhos (melhor) · <b>via STUN</b> = se acharam através do roteador (ótimo também) · <b>via TURN</b> = passou por um servidor de retransmissão · <b>falhou</b> = a rede bloqueou.</p>
+</div>
+<div style="max-width:760px;margin:0 auto;padding:0 14px 14px"><div id="log"></div></div>
+
+<script src="https://unpkg.com/peerjs@1.5.5/dist/peerjs.min.js"></script>
+<script>
+(function(){
+"use strict";
+const MAX=4,PREFIX="ezobby-lab-";
+const $=id=>document.getElementById(id);
+const COLORS=["#f97316","#3b82f6","#ec4899","#a855f7"];
+const qs=new URLSearchParams(location.search);
+const srv=qs.get("server"); // ex.: ?server=localhost:9000 para testes locais
+const peerOpts=srv?{host:srv.split(":")[0],port:+srv.split(":")[1]||9000,path:"/",secure:false}:{};
+peerOpts.config={iceServers:[{urls:"stun:stun.l.google.com:19302"}]};
+function log(m){const l=$("log");l.textContent+=new Date().toLocaleTimeString()+"  "+m+"\n";l.scrollTop=l.scrollHeight;}
+function code4(){const A="ABCDEFGHJKLMNPQRSTUVWXYZ";let s="";for(let i=0;i<4;i++)s+=A[Math.floor(Math.random()*A.length)];return s;}
+function clean(s){return String(s||"").replace(/[\u0000-\u001f<>]/g,"").slice(0,12)||"Jogador";}
+
+let peer=null,isHost=false,myId=null,hostConn=null;
+const conns=new Map();          // host: peerId -> conn
+const players={};               // id -> {name,color,x,y,ping,type,wave}
+const me={x:360,y:225};
+
+function start(asHost,roomCode){
+  const name=clean($("nm").value);
+  isHost=asHost;
+  const id=asHost?PREFIX+roomCode:undefined;
+  peer=new Peer(id,peerOpts);
+  peer.on("open",pid=>{
+    myId=pid;log("Conectado ao servidor de sinalização como "+pid);
+    players[myId]={name,color:COLORS[0],x:me.x,y:me.y,ping:0,type:"(você)"};
+    $("lobby").classList.add("hidden");$("game").classList.remove("hidden");
+    $("code").textContent=roomCode;$("role").textContent=asHost?"· você é o anfitrião":"· conectando ao anfitrião…";
+    if(!asHost){
+      hostConn=peer.connect(PREFIX+roomCode,{reliable:false,metadata:{name}});
+      wireClient(hostConn);
+    }
+  });
+  peer.on("error",e=>{
+    log("Erro: "+e.type+" — "+(e.message||""));
+    if(e.type==="unavailable-id")lobbyMsg("Esse código já está em uso, tente de novo.");
+    else if(e.type==="peer-unavailable")lobbyMsg("Sala não encontrada. Confira o código.");
+    else if(e.type==="network"||e.type==="server-error")lobbyMsg("Não consegui falar com o servidor de sinalização.");
+  });
+  if(asHost)peer.on("connection",c=>{
+    if(conns.size>=MAX-1){log("Sala cheia: recusando "+c.peer);c.on("open",()=>{c.send({t:"full"});setTimeout(()=>c.close(),300);});return;}
+    wireHost(c);
+  });
+}
+function lobbyMsg(m){$("lobbyMsg").textContent=m;$("lobby").classList.remove("hidden");$("game").classList.add("hidden");}
+
+// ---------- host side
+function wireHost(c){
+  c.on("open",()=>{
+    const used=new Set(Object.values(players).map(p=>p.color));
+    const color=COLORS.find(x=>!used.has(x))||COLORS[1];
+    players[c.peer]={name:clean(c.metadata&&c.metadata.name),color,x:360,y:225,ping:null,type:"…"};
+    conns.set(c.peer,c);log("Entrou: "+players[c.peer].name+" ("+(conns.size+1)+"/4)");
+    c.send({t:"welcome",color});
+    watchType(c,c.peer);
+  });
+  c.on("data",d=>{
+    if(!d||typeof d!=="object")return;
+    const p=players[c.peer];if(!p)return;
+    if(d.t==="pos"&&isFinite(d.x)&&isFinite(d.y)){p.x=Math.max(0,Math.min(720,d.x));p.y=Math.max(0,Math.min(450,d.y));}
+    if(d.t==="pong")p.ping=Math.round(performance.now()-d.s);
+    if(d.t==="wave"){p.wave=performance.now();broadcast({t:"wave",id:c.peer});}
+  });
+  c.on("close",()=>{log("Saiu: "+(players[c.peer]||{}).name);delete players[c.peer];conns.delete(c.peer);});
+}
+function broadcast(m){for(const c of conns.values())if(c.open)c.send(m);}
+setInterval(()=>{ // host: 15x/s send world state
+  if(!isHost||!myId)return;
+  players[myId].x=me.x;players[myId].y=me.y;
+  const list=Object.entries(players).map(([id,p])=>({id,n:p.name,c:p.color,x:Math.round(p.x),y:Math.round(p.y),pg:p.ping,ty:p.type}));
+  broadcast({t:"state",list});
+},66);
+setInterval(()=>{if(isHost)broadcast({t:"ping",s:performance.now()});},1000);
+
+// ---------- client side
+function wireClient(c){
+  const timeout=setTimeout(()=>{if(!c.open){log("Não consegui abrir conexão direta com o anfitrião (rede pode estar bloqueando).");$("role").textContent="· conexão falhou";}},12000);
+  c.on("open",()=>{clearTimeout(timeout);log("Conexão aberta com o anfitrião");$("role").textContent="· conectado";watchType(c,"host");});
+  c.on("data",d=>{
+    if(!d||typeof d!=="object")return;
+    if(d.t==="full"){c.fullRoom=true;lobbyMsg("Sala cheia (máximo 4 jogadores). Peça para criarem outra sala.");return;}
+    if(d.t==="welcome")players[myId].color=d.color;
+    if(d.t==="ping")c.send({t:"pong",s:d.s});
+    if(d.t==="wave"&&players[d.id])players[d.id].wave=performance.now();
+    if(d.t==="state"&&Array.isArray(d.list)){
+      const seen=new Set([myId]);
+      for(const q of d.list.slice(0,MAX)){if(q.id===myId){players[myId].ping=q.pg;continue;}seen.add(q.id);
+        const p=players[q.id]||(players[q.id]={});Object.assign(p,{name:clean(q.n),color:q.c,tx:q.x,ty2:q.y,type:q.id===PREFIX+$("code").textContent?"anfitrião":"via anfitrião"});
+        if(p.x===undefined){p.x=q.x;p.y=q.y;}}
+      for(const id of Object.keys(players))if(!seen.has(id))delete players[id];
+    }
+  });
+  c.on("close",()=>{if(c.fullRoom)return;log("O anfitrião saiu — sala encerrada.");lobbyMsg("O anfitrião saiu, a sala acabou.");});
+  setInterval(()=>{if(c.open)c.send({t:"pos",x:Math.round(me.x),y:Math.round(me.y)});},66);
+}
+// connection type via WebRTC stats
+async function watchType(c,key){
+  for(let i=0;i<10;i++){
+    await new Promise(r=>setTimeout(r,800));
+    const pc=c.peerConnection;if(!pc)continue;
+    try{const st=await pc.getStats();let pair=null,loc={};
+      st.forEach(r=>{if(r.type==="transport"&&r.selectedCandidatePairId)pair=st.get(r.selectedCandidatePairId);});
+      if(!pair)st.forEach(r=>{if(r.type==="candidate-pair"&&r.nominated&&r.state==="succeeded")pair=r;});
+      if(pair){loc=st.get(pair.localCandidateId)||{};const m={host:"direta (mesma rede)",srflx:"direta via STUN",prflx:"direta via STUN",relay:"via TURN (servidor)"};
+        const label=m[loc.candidateType]||loc.candidateType;
+        if(key==="host"){players[myId].type="você → "+label;}else if(players[key])players[key].type=label;
+        log("Tipo de conexão ("+(key==="host"?"anfitrião":players[key].name)+"): "+label);return;}
+    }catch(e){}
+  }
+}
+
+// ---------- input & draw
+const keys={};addEventListener("keydown",e=>keys[e.key.toLowerCase()]=true);addEventListener("keyup",e=>keys[e.key.toLowerCase()]=false);
+const cv=$("cv"),ctx=cv.getContext("2d");let drag=null;
+cv.addEventListener("pointerdown",e=>{drag=e;cv.setPointerCapture(e.pointerId);});
+cv.addEventListener("pointermove",e=>{if(drag){const r=cv.getBoundingClientRect();me.x=(e.clientX-r.left)/r.width*720;me.y=(e.clientY-r.top)/r.height*450;}});
+cv.addEventListener("pointerup",()=>drag=null);
+$("createBtn").onclick=()=>start(true,code4());
+$("joinBtn").onclick=()=>{const c=$("joinCode").value.toUpperCase().trim();if(!/^[A-Z]{4}$/.test(c)){lobbyMsg("Digite o código de 4 letras.");return;}start(false,c);};
+$("leaveBtn").onclick=()=>location.reload();
+$("waveBtn").onclick=()=>{if(players[myId])players[myId].wave=performance.now();if(isHost)broadcast({t:"wave",id:myId});else if(hostConn&&hostConn.open)hostConn.send({t:"wave"});};
+let last=performance.now();
+function frame(now){
+  requestAnimationFrame(frame);const dt=Math.min(0.05,(now-last)/1000);last=now;
+  const sp=220*dt;if(keys.w||keys.arrowup)me.y-=sp;if(keys.s||keys.arrowdown)me.y+=sp;if(keys.a||keys.arrowleft)me.x-=sp;if(keys.d||keys.arrowright)me.x+=sp;
+  me.x=Math.max(15,Math.min(705,me.x));me.y=Math.max(15,Math.min(435,me.y));
+  if(players[myId]){players[myId].x=me.x;players[myId].y=me.y;}
+  for(const p of Object.values(players))if(p.tx!==undefined){const k=1-Math.exp(-12*dt);p.x+=(p.tx-p.x)*k;p.y+=(p.ty2-p.y)*k;}
+  ctx.fillStyle="#166534";ctx.fillRect(0,0,720,450);
+  ctx.strokeStyle="rgba(255,255,255,.08)";for(let x=0;x<720;x+=40){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,450);ctx.stroke();}for(let y=0;y<450;y+=40){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(720,y);ctx.stroke();}
+  for(const [id,p] of Object.entries(players)){
+    ctx.fillStyle=p.color||"#fff";ctx.beginPath();ctx.arc(p.x,p.y,15,0,Math.PI*2);ctx.fill();
+    if(id===myId){ctx.lineWidth=3;ctx.strokeStyle="#fde047";ctx.stroke();}
+    ctx.fillStyle="#fff";ctx.font="bold 13px system-ui";ctx.textAlign="center";ctx.fillText(p.name+(id===myId?" (você)":""),p.x,p.y-22);
+    if(p.wave&&now-p.wave<1500){ctx.font="26px system-ui";ctx.fillText("👋",p.x,p.y-38);}
+  }
+  const tb=$("tbl");let html="";
+  for(const [id,p] of Object.entries(players)){const pg=p.ping==null?"…":(id===myId&&isHost?"—":p.ping+" ms");
+    const cls=typeof p.ping==="number"?(p.ping<80?"ok":p.ping<200?"warn":"bad"):"";
+    html+=`<tr><td style="color:${p.color}">● ${p.name.replace(/[<>&]/g,"")}${id===myId?" (você)":""}</td><td class="${cls}">${pg}</td><td>${p.type||""}</td></tr>`;}
+  if(tb.innerHTML!==html)tb.innerHTML=html;
+}
+requestAnimationFrame(frame);
+if(typeof Peer==="undefined")lobbyMsg("A biblioteca PeerJS não carregou (sem internet ou bloqueada).");
+})();
+</script>
+</body>
+</html>
