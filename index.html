@@ -227,8 +227,15 @@
   <div class="card">
     <h2 data-i="mpTitle" style="margin:0 0 8px;color:#2563eb;font-size:26px"></h2>
     <ol id="mpSteps" style="padding-left:22px;line-height:1.55;color:#334155;margin:6px 0"></ol>
-    <div class="share"><button id="rtcCreate" style="background:#22c55e"></button><button id="rtcEdit" style="background:#8b5cf6"></button></div>
-    <div class="share"><input id="rtcCode" maxlength="4" autocomplete="off" style="flex:1;min-width:0;font:inherit;font-size:18px;padding:10px;border:2px solid #cbd5e1;border-radius:12px;text-transform:uppercase;text-align:center;letter-spacing:4px"><button id="rtcJoin" style="background:#f59e0b"></button></div>
+    <div id="rtcBig" class="hidden" style="background:#fde047;border:4px solid #f59e0b;border-radius:18px;padding:10px 14px;text-align:center;box-shadow:0 5px 0 #d97706">
+      <div id="rtcBigLbl" style="font-weight:800;font-size:15px;color:#78350f"></div>
+      <div id="rtcBigCode" style="font-weight:900;font-size:52px;letter-spacing:12px;color:#1e293b;line-height:1.1"></div>
+      <div id="rtcBigN" style="font-weight:700;font-size:15px;color:#78350f"></div>
+    </div>
+    <div id="rtcNew"><div id="rtcLbl1" style="font-weight:800;font-size:16px;color:#1e293b;margin:4px 0"></div>
+    <div class="share"><button id="rtcCreate" style="background:#22c55e;font-size:18px;padding:14px"></button><button id="rtcEdit" style="background:#8b5cf6"></button></div>
+    <div id="rtcLbl2" style="font-weight:800;font-size:16px;color:#1e293b;margin:10px 0 4px"></div>
+    <div class="share"><input id="rtcCode" maxlength="4" autocomplete="off" style="flex:1;min-width:0;font:inherit;font-size:18px;padding:10px;border:2px solid #cbd5e1;border-radius:12px;text-transform:uppercase;text-align:center;letter-spacing:4px"><button id="rtcJoin" style="background:#f59e0b;font-size:18px"></button></div></div>
     <div id="rtcInfo" class="info" style="font-weight:700;font-size:15px;color:#1e40af"></div>
     <button class="sec hidden" id="rtcLeave"></button>
     <div class="share">
@@ -375,11 +382,11 @@ Object.assign(T.en,{g_horse:"🐴 Horse",g_smiley:"😃 Big smile",pw_cream:"Ice
 Object.assign(T.es,{g_horse:"🐴 Caballo",g_smiley:"😃 Sonrisota",pw_cream:"Helado directo",pw_choc:"Chocolate teledirigido",shareBig:"📋 Copiar enlace multijugador",
   s_power:"⚡ ¡Los cubos dan PODERES!\nToma uno y pulsa J para usarlo (U cambia)",s_powerT:"⚡ ¡Los cubos dan PODERES!\nToma uno y toca el botón morado ⚡"});
 Object.assign(T.pt,{pw_fart:"Peido pra trás",pw_water:"Balde de água",pw_ice:"Balde de gelo",pw_ghost:"Intangível",pw_boots:"Bota de voo",pw_angel:"Anjo",pw_reverse:"Reversal",
-  pwHint:"J usa · U troca",pwAuto:"funciona sozinho quando precisar!",pwBlocked:"Ataque bloqueado!",pwReflected:"Ataque devolvido!",pwFrozen:"Congelado!",pwSaved:"O anjo te salvou!",invSaved:"🎒 Poderes guardados:",invNone:"nenhum ainda — pegue nos quadrados a partir da fase 2"});
+  pwHint:"J usa · U troca",pwDizzy:"Tonto! 5s",pwAuto:"funciona sozinho quando precisar!",pwBlocked:"Ataque bloqueado!",pwReflected:"Ataque devolvido!",pwFrozen:"Congelado!",pwSaved:"O anjo te salvou!",invSaved:"🎒 Poderes guardados:",invNone:"nenhum ainda — pegue nos quadrados a partir da fase 2"});
 Object.assign(T.en,{pw_fart:"Fart blast",pw_water:"Water bucket",pw_ice:"Ice bucket",pw_ghost:"Intangible",pw_boots:"Flying boots",pw_angel:"Angel",pw_reverse:"Reversal",
-  pwHint:"J use · U switch",pwAuto:"works by itself when needed!",pwBlocked:"Attack blocked!",pwReflected:"Attack reflected!",pwFrozen:"Frozen!",pwSaved:"The angel saved you!",invSaved:"🎒 Saved powers:",invNone:"none yet — grab them from the boxes from stage 2 on"});
+  pwHint:"J use · U switch",pwDizzy:"Dizzy! 5s",pwAuto:"works by itself when needed!",pwBlocked:"Attack blocked!",pwReflected:"Attack reflected!",pwFrozen:"Frozen!",pwSaved:"The angel saved you!",invSaved:"🎒 Saved powers:",invNone:"none yet — grab them from the boxes from stage 2 on"});
 Object.assign(T.es,{pw_fart:"Pedo hacia atrás",pw_water:"Cubo de agua",pw_ice:"Cubo de hielo",pw_ghost:"Intangible",pw_boots:"Botas voladoras",pw_angel:"Ángel",pw_reverse:"Reversa",
-  pwHint:"J usa · U cambia",pwAuto:"¡funciona solo cuando hace falta!",pwBlocked:"¡Ataque bloqueado!",pwReflected:"¡Ataque devuelto!",pwFrozen:"¡Congelado!",pwSaved:"¡El ángel te salvó!",invSaved:"🎒 Poderes guardados:",invNone:"ninguno aún — tómalos de los cubos desde la fase 2"});
+  pwHint:"J usa · U cambia",pwDizzy:"¡Mareado! 5s",pwAuto:"¡funciona solo cuando hace falta!",pwBlocked:"¡Ataque bloqueado!",pwReflected:"¡Ataque devuelto!",pwFrozen:"¡Congelado!",pwSaved:"¡El ángel te salvó!",invSaved:"🎒 Poderes guardados:",invNone:"ninguno aún — tómalos de los cubos desde la fase 2"});
 Object.assign(T.pt,{thn:{playground:"Parquinho",sky:"Céu",ice:"Gelo",math:"Contas",forest:"Floresta",city:"Cidade",temple:"Pedra Gigante",riddle:"Charadas",classroom:"Professora",neon:"Neon",lava:"Lava"},
   mapTitle:"🗺️ Mapa do trajeto",diffTitle:"Escolha o seu trajeto!",diffLbl:"Dificuldade:",d0:"Pudim",d1:"Sorvete",d2:"Chocolate",d0s:"Plataformas grandes e pulos curtinhos",d1s:"O trajeto normal",d2s:"Plataformas pequenas e pulos longos!",mapSkip:"Avançar ▶",map2d:"🗺️ Mapa 2D",mapStart:"🎥 Sobrevoando o trajeto… clique em Avançar quando quiser",specLoaded:"🗺️ Trajeto do anfitrião carregado!",
   s_stairs:"🏢 Suba pela escada de fora!",s_stairsIn:"🚪 Entre pela porta laranja\ne suba a escada de dentro!",s_zip:"🪢 Tirolesa!\nEncoste na alça vermelha",s_belt:"➡️ Esteira rolante!\nEla te leva pra frente",s_beltBack:"⬅️ Esteira ao contrário!\nCorra contra ela",
@@ -428,15 +435,15 @@ const RIDDLES=[
 ];
 Object.assign(T.pt,{mp:"<b>Multiplayer:</b> crie uma sala e mande o link para até 3 amigos — ninguém precisa de conta. Encoste correndo em alguém para empurrar!",
   mpSteps:["Toque em <b>Criar sala</b>: aparece um código de 4 letras.","Mande o link (ou o código) para até 3 amigos. Quem abrir o link entra direto na sala.","Todos escolhem o mesmo modo: <b>Parkour</b> ou <b>Tabuada multiplayer</b> e tocam em Começar.","Funciona melhor no mesmo Wi-Fi ou em redes de casa. Se quem criou a sala sair, a sala acaba."],
-  rtcCreate:"➕ Criar sala",rtcJoin:"🚪 Entrar",rtcCodePh:"CÓDIGO",rtcRoom:"✅ Sala {c} · {n}/4 jogadores",rtcHost:" (você criou)",rtcFull:"❌ Sala cheia (máximo 4).",rtcNotFound:"❌ Sala não encontrada. Confira o código.",
+  rtcCreate:"➕ Criar sala",rtcLbl1:"1️⃣ Quer chamar amigos? Crie uma sala:",rtcLbl2:"2️⃣ Recebeu um código? Digite aqui:",rtcBigLbl:"🔑 CÓDIGO DA SALA — fale para o seu amigo:",rtcBigN:"👥 {n}/4 jogadores na sala",rtcJoin:"🚪 Entrar",rtcCodePh:"CÓDIGO",rtcRoom:"✅ Sala {c} · {n}/4 jogadores",rtcHost:" (você criou)",rtcFull:"❌ Sala cheia (máximo 4).",rtcNotFound:"❌ Sala não encontrada. Confira o código.",
   rtcFail:"⚠️ Não consegui conectar. Esta rede pode bloquear conexões diretas.",rtcHostLeft:"⚠️ Quem criou a sala saiu. A sala acabou.",rtcLeave:"Sair da sala",rtcLeft:"Você saiu da sala.",rtcConnecting:"⏳ Conectando...",waText:"Bora jogar EZ Obby comigo! 🎮"});
 Object.assign(T.en,{mp:"<b>Multiplayer:</b> create a room and send the link to up to 3 friends — nobody needs an account. Run into someone to push them!",
   mpSteps:["Tap <b>Create room</b>: a 4-letter code shows up.","Send the link (or the code) to up to 3 friends. Whoever opens the link joins the room directly.","Everyone picks the same mode: <b>Parkour</b> or <b>Multiplayer times tables</b> and taps Start.","Works best on the same Wi-Fi or home networks. If the room creator leaves, the room ends."],
-  rtcCreate:"➕ Create room",rtcJoin:"🚪 Join",rtcCodePh:"CODE",rtcRoom:"✅ Room {c} · {n}/4 players",rtcHost:" (you created it)",rtcFull:"❌ Room is full (max 4).",rtcNotFound:"❌ Room not found. Check the code.",
+  rtcCreate:"➕ Create room",rtcLbl1:"1️⃣ Want to call friends? Create a room:",rtcLbl2:"2️⃣ Got a code? Type it here:",rtcBigLbl:"🔑 ROOM CODE — tell your friend:",rtcBigN:"👥 {n}/4 players in the room",rtcJoin:"🚪 Join",rtcCodePh:"CODE",rtcRoom:"✅ Room {c} · {n}/4 players",rtcHost:" (you created it)",rtcFull:"❌ Room is full (max 4).",rtcNotFound:"❌ Room not found. Check the code.",
   rtcFail:"⚠️ Couldn't connect. This network may block direct connections.",rtcHostLeft:"⚠️ The room creator left. The room ended.",rtcLeave:"Leave room",rtcLeft:"You left the room.",rtcConnecting:"⏳ Connecting...",waText:"Come play EZ Obby with me! 🎮"});
 Object.assign(T.es,{mp:"<b>Multijugador:</b> crea una sala y envía el enlace a hasta 3 amigos — nadie necesita cuenta. ¡Choca corriendo con alguien para empujarlo!",
   mpSteps:["Toca <b>Crear sala</b>: aparece un código de 4 letras.","Envía el enlace (o el código) a hasta 3 amigos. Quien abra el enlace entra directo a la sala.","Todos eligen el mismo modo: <b>Parkour</b> o <b>Tablas multijugador</b> y tocan Empezar.","Funciona mejor en el mismo Wi-Fi o en redes de casa. Si quien creó la sala se va, la sala termina."],
-  rtcCreate:"➕ Crear sala",rtcJoin:"🚪 Entrar",rtcCodePh:"CÓDIGO",rtcRoom:"✅ Sala {c} · {n}/4 jugadores",rtcHost:" (la creaste tú)",rtcFull:"❌ Sala llena (máximo 4).",rtcNotFound:"❌ Sala no encontrada. Revisa el código.",
+  rtcCreate:"➕ Crear sala",rtcLbl1:"1️⃣ ¿Quieres llamar amigos? Crea una sala:",rtcLbl2:"2️⃣ ¿Te dieron un código? Escríbelo aquí:",rtcBigLbl:"🔑 CÓDIGO DE LA SALA — díselo a tu amigo:",rtcBigN:"👥 {n}/4 jugadores en la sala",rtcJoin:"🚪 Entrar",rtcCodePh:"CÓDIGO",rtcRoom:"✅ Sala {c} · {n}/4 jugadores",rtcHost:" (la creaste tú)",rtcFull:"❌ Sala llena (máximo 4).",rtcNotFound:"❌ Sala no encontrada. Revisa el código.",
   rtcFail:"⚠️ No pude conectar. Esta red puede bloquear conexiones directas.",rtcHostLeft:"⚠️ Quien creó la sala salió. La sala terminó.",rtcLeave:"Salir de la sala",rtcLeft:"Saliste de la sala.",rtcConnecting:"⏳ Conectando...",waText:"¡Ven a jugar EZ Obby conmigo! 🎮"});
 const CHAT=[{e:"👋"},{e:"😂"},{e:"🔥"},{e:"😱"},{e:"😎"},{e:"🥳"},{e:"😡"},{e:"👍"},{k:"c_hi"},{k:"c_wait"},{k:"c_gg"},{k:"c_go"},{k:"c_help"},{k:"c_pass"},{k:"c_close"},{k:"c_thx"}];
 function store(k,v){try{localStorage.setItem(k,v)}catch(e){}}
@@ -561,6 +568,7 @@ const Snd=(function(){
       l.frequency.value=24;lg.gain.value=0.35;l.connect(lg);lg.connect(g.gain);g.gain.setValueAtTime(0.0001,n);g.gain.exponentialRampToValueAtTime(0.45,n+0.03);g.gain.exponentialRampToValueAtTime(0.0001,n+0.65);
       const f=ctx.createBiquadFilter();f.type="lowpass";f.frequency.value=500;o.connect(f);f.connect(g);g.connect(sfxG);o.start(n);l.start(n);o.stop(n+0.7);l.stop(n+0.7);},
     splash(){const n=now();noise(n,0.5,0.5,sfxG,900);tone("sine",600,n,0.2,0.2,sfxG,200);},
+    dizzy(){const n=now();[0,0.22,0.44].forEach((d,i)=>{tone("triangle",700-i*120,n+d,0.2,0.18,sfxG,380-i*80);});tone("sine",1200,n+0.7,0.35,0.1,sfxG,900);tone("sine",900,n+0.85,0.35,0.1,sfxG,1300);},
     freeze(){const n=now();[2093,1760,2349,1976].forEach((f,i)=>tone("sine",f,n+i*0.05,0.25,0.12,sfxG));noise(n,0.3,0.2,sfxG,5000);},
     ghost(){tone("sine",300,now(),0.8,0.22,sfxG,900);},
     boots(){const n=now();noise(n,0.5,0.3,sfxG,1500);tone("sawtooth",200,n,0.5,0.15,sfxG,600);},
@@ -1075,28 +1083,28 @@ function segBuilding(s,i,sg,th){
   const [,,dx,h,style]=sg;const pcx=cx;cx+=dx;const fz=edge+4,bz=fz+10,zc=fz+5,top=cy+h;
   plat((pcx+cx)/2,cy,edge+1.9,Math.abs(cx-pcx)+(style==="ext"?11:8),4.4,0x9ca3af,"solid",{seg:[curStage,curSeg]});
   if(style==="ext"){
-    plat(cx+0.8,cy,zc,9.8,10,0x9ca3af,"solid",{seg:[curStage,curSeg]});
+    plat(cx+1,cy,zc,10.2,10,0x9ca3af,"solid",{seg:[curStage,curSeg]});
     addBox(cx,cy+h/2,zc,6.4,h,10,BWALL,"solid",{seg:[curStage,curSeg],bldg:true});
     addBox(cx,top+0.05,zc,6.4,0.1,10,getMat(0x475569),"deco");
     for(let k=0;k<Math.floor(h/1.5);k++)addBox(cx,cy+k*1.5+0.75,zc,6.45,0.12,10.05,getMat(0x1e3a8a),"deco");
     const n=Math.ceil(h/0.5),run=9.4/n;
-    for(let k=0;k<n;k++){const tp=Math.min(h,(k+1)*0.5);addBox(cx+3.95,cy+tp/2,fz+0.3+(k+0.5)*run,1.5,tp,run,getMat(0xfacc15),"solid");}
-    addBox(cx+4.75,cy+h/2+0.6,zc,0.1,h+1.2,10,getMat(0xef4444),"deco");
-    wps.push({x:cx+3.95,y:cy,z:fz+0.2});wps.push({x:cx+3.95,y:cy+h/2,z:zc});wps.push({x:cx+3.95,y:top,z:bz-0.6});wps.push({x:cx,y:top,z:bz-1.5});
+    for(let k=0;k<n;k++){const tp=Math.min(h,(k+1)*0.5);addBox(cx+4.45,cy+tp/2,fz+0.3+(k+0.5)*run,1.5,tp,run,getMat(0xfacc15),"solid");}
+    addBox(cx+5.3,cy+h/2+0.6,zc,0.1,h+1.2,10,getMat(0xef4444),"deco");
+    wps.push({x:cx+4.45,y:cy,z:fz+0.2});wps.push({x:cx+4.45,y:cy+h/2,z:zc});wps.push({x:cx+4.45,y:top,z:bz-0.6});wps.push({x:cx+3,y:top,z:bz-0.6});wps.push({x:cx,y:top,z:bz-1.5});
     const DOOR=getMat(0xf97316),MAT=getMat(0xdc2626);
-    addBox(cx+3.1,cy+1.6,fz-0.05,0.25,3.2,0.25,DOOR,"deco");addBox(cx+4.8,cy+1.6,fz-0.05,0.25,3.2,0.25,DOOR,"deco");addBox(cx+3.95,cy+3.3,fz-0.05,1.95,0.3,0.25,DOOR,"deco");
-    addBox(cx+3.95,cy+0.03,fz-0.6,1.6,0.04,1,MAT,"deco");
-    addSign("s_stairs",cx+3.95,cy+4.4,fz-0.3);
+    addBox(cx+3.6,cy+1.6,fz-0.05,0.25,3.2,0.25,DOOR,"deco");addBox(cx+5.3,cy+1.6,fz-0.05,0.25,3.2,0.25,DOOR,"deco");addBox(cx+4.45,cy+3.3,fz-0.05,1.95,0.3,0.25,DOOR,"deco");
+    addBox(cx+4.45,cy+0.03,fz-0.6,1.6,0.04,1,MAT,"deco");
+    addSign("s_stairs",cx+4.45,cy+4.4,fz-0.3);
   }else{
     plat(cx,cy,zc,8,10,0x9ca3af,"solid",{seg:[curStage,curSeg]});
     const W=(x,w,z,d)=>addBox(x,cy+h/2,z,w,h,d,BWALL,"solid",{seg:[curStage,curSeg],bldg:true});
     W(cx-3.85,0.3,zc,10);W(cx+3.85,0.3,zc,10);W(cx,8,bz-0.15,0.3);W(cx-2.6,2.8,fz+0.15,0.3);W(cx+2.6,2.8,fz+0.15,0.3);
     addBox(cx,cy+h-0.6,fz+0.15,2.4,1.2,0.3,BWALL,"solid");
     const hz=fz+5.2;
-    addBox(cx+1.1,top-0.15,zc,5.8,0.3,bz-fz,GLASS,"solid",{seg:[curStage,curSeg]});
+    addBox(cx+1.25,top-0.15,zc,5.5,0.3,bz-fz,GLASS,"solid",{seg:[curStage,curSeg]});
     const n=Math.ceil(h/0.5),run=8.6/n;
-    for(let k=0;k<n;k++){const tp=Math.min(h,(k+1)*0.5);addBox(cx-2.85,cy+tp/2,fz+1.1+(k+0.5)*run,1.9,tp,run,getMat(0xfacc15),"solid");}
-    wps.push({x:cx,y:cy,z:fz+0.9});wps.push({x:cx-2.85,y:cy+0.5,z:fz+1.4});wps.push({x:cx-2.85,y:cy+h/2,z:fz+5});wps.push({x:cx-2.85,y:top,z:bz-0.5});wps.push({x:cx+1.2,y:top,z:bz-1.2});
+    for(let k=0;k<n;k++){const tp=Math.min(h,(k+1)*0.5);addBox(cx-2.45,cy+tp/2,fz+1.1+(k+0.5)*run,1.6,tp,run,getMat(0xfacc15),"solid");}
+    wps.push({x:cx,y:cy,z:fz+0.9});wps.push({x:cx-2.45,y:cy+0.5,z:fz+1.4});wps.push({x:cx-2.45,y:cy+h/2,z:fz+5});wps.push({x:cx-2.45,y:top,z:bz-0.5});wps.push({x:cx+1.2,y:top,z:bz-1.2});
     const DOOR=getMat(0xf97316),MAT=getMat(0xdc2626),dTop=cy+h-1.2;
     addBox(cx-1.3,cy+(h-1.2)/2,fz-0.05,0.3,h-1.2,0.4,DOOR,"deco");addBox(cx+1.3,cy+(h-1.2)/2,fz-0.05,0.3,h-1.2,0.4,DOOR,"deco");addBox(cx,dTop+0.15,fz-0.05,2.9,0.3,0.4,DOOR,"deco");
     addBox(cx,cy+0.03,fz-0.7,2.4,0.04,1.2,MAT,"deco");addBox(cx,cy+0.03,fz+1,2.2,0.04,1.4,MAT,"deco");
@@ -1115,7 +1123,10 @@ function segTower(s,i,sg,th){
 function segZip(s,i,sg,th){
   const [,len,drop]=sg;const z0=edge,y0=cy;
   const lz=z0+len+3,y1=cy-drop;
-  addBox(cx,y0+1.9,z0-0.3,0.25,3.8,0.25,getMat(0x1f2937),"deco");
+  {const GT=getMat(0xef4444),GY=getMat(0xfacc15);
+   addBox(cx-1.5,y0+1.9,z0-0.3,0.35,3.8,0.35,GT,"deco");addBox(cx+1.5,y0+1.9,z0-0.3,0.35,3.8,0.35,GT,"deco");
+   addBox(cx,y0+3.95,z0-0.3,3.4,0.4,0.4,GY,"deco");for(let k=-1;k<=1;k++)addBox(cx+k*1.05,y0+4.35,z0-0.3,0.4,0.4,0.4,GT,"deco");
+   addBox(cx,y0+0.03,z0-1,2.6,0.04,1.4,getMat(0xdc2626),"deco");}
   const cable=new THREE.Mesh(CYL,getMat(0x111827));const L=Math.hypot(len+1,drop);cable.scale.set(0.05,L,0.05);
   cable.position.set(cx,(y0+y1)/2+3.6,z0+(len+1)/2);cable.rotation.x=Math.PI/2-Math.atan2(drop,len+1);scene.add(cable);
   const handle=new THREE.Mesh(UNIT,getMat(0xef4444));handle.scale.set(0.9,0.12,0.12);handle.position.set(cx,y0+3.0,z0+0.2);scene.add(handle);
@@ -1124,7 +1135,7 @@ function segZip(s,i,sg,th){
   zips.push({x:cx,y0,z0,y1,z1:z0+len+1,handle,len});
   regSeg({kind:"zip",z:z0+len/2,w:1,d:len,y0,y1});
   wps.push({x:cx,y:y0,z:z0-0.7,zip:zips.length-1});wps.push({x:cx,y:cy,z:r.z});
-  addSign("s_zip",cx-3.2,y0+2.8,z0-2);
+  addSign("s_zip",cx,y0+5.4,z0-0.5);
 }
 function segBelt(s,i,sg,th){
   const [,gap,dx,dy,w,d,v]=sg;const r=nextPlat(gap,dx,dy,w,d,0x334155,0,{belt:v});
@@ -1338,14 +1349,16 @@ class Character{
   setPts(p){if(p===this.pts)return;this.pts=p;this.makeLabel();}
   setIcons(s){if(s===this.icons)return;this.icons=s;disposeSprite(this.iconSp);this.iconSp=null;
     if(s){this.iconSp=makeTextSprite(s,{color:"#ffffff"});this.iconSp.scale.set(2.6,0.65,1);this.iconSp.position.y=headTop(this.look)+0.62;this.root.add(this.iconSp);}}
-  setFx(f){f=f||{};for(const k of ["gh","fz","bt"]){const want=!!f[k];
+  setFx(f){f=f||{};for(const k of ["gh","fz","bt","dz"]){const want=!!f[k];
     if(want&&!this.fxM[k]){const g=new THREE.Group();
       if(k==="gh"){const m=new THREE.Mesh(UNIT,FX_MATS.gh);m.scale.set(1.5,3.1,1.5);m.position.y=1.45;g.add(m);}
       else if(k==="fz"){const m=new THREE.Mesh(UNIT,FX_MATS.fz);m.scale.set(1.6,3.2,1.6);m.position.y=1.5;g.add(m);}
+      else if(k==="dz"){for(let i=0;i<4;i++){const a=i/4*Math.PI*2,m=new THREE.Mesh(UNIT,getMat(i%2?0xfacc15:0xffffff));m.scale.set(0.28,0.28,0.28);m.rotation.set(0.6,0.6,0);m.position.set(Math.cos(a)*0.6,3.35,Math.sin(a)*0.6);g.add(m);}}
       else{[-0.24,0.24].forEach(x=>{const m=new THREE.Mesh(UNIT,FX_MATS.bt);m.scale.set(0.5,0.18,0.62);m.position.set(x,0.06,0);g.add(m);
         const fl=new THREE.Mesh(UNIT,AURA_MAT);fl.scale.set(0.3,0.4,0.3);fl.position.set(x,-0.25,0);g.add(fl);});}
       this.root.add(g);this.fxM[k]=g;}
     else if(!want&&this.fxM[k]){this.root.remove(this.fxM[k]);this.fxM[k]=null;}}
+    if(this.fxM.dz)this.fxM.dz.rotation.y+=0.12;
     if(this.fxM.bt)this.fxM.bt.children.forEach((c,i)=>{if(i%2)c.scale.y=0.3+Math.random()*0.35;});}
   say(text){disposeSprite(this.bubble);this.bubble=makeTextSprite(text,{bubble:true});this.bubble.position.y=headTop(this.look)+(this.icons?1.45:0.95);this.root.add(this.bubble);this.bubbleT=4;}
   animate(dt,speed,grounded,sit){
@@ -1537,6 +1550,7 @@ function updateBots(dt){
     else{const w=botWpPos(b,b.wp);tx=w.x;ty=w.y;tz=w.z;}
     let dx=tx-B.x,dz=tz-B.z;const h=Math.hypot(dx,dz);if(h>1e-3){dx/=h;dz/=h;}
     let jump=false,held=true,sp=b.speed;
+    if(b.dizzy>0){b.dizzy-=dt;sp*=0.5;const a=Math.sin(performance.now()/380+b.speed)*1.1,c=Math.cos(a),sn=Math.sin(a),ox=dx;dx=ox*c-dz*sn;dz=ox*sn+dz*c;b.ch.setFx({dz:true});}else if(b.ch.fxM.dz)b.ch.setFx({});
     if(b.pause>0){b.pause-=dt;sp=0;}
     if(B.grounded&&sp>0){
       if(ty-B.y>0.5&&h<4.6)jump=true;
@@ -1859,7 +1873,7 @@ function upsertRemote(p){
   r.tx=pos[0];r.ty=pos[1];r.tz=pos[2];
   const rot=num(pr.r,-100,100);if(rot!==null)r.trot=rot;
   {const iv=Array.isArray(pr.inv)?pr.inv.filter(x=>PW[x]).slice(0,MAXINV):[];r.ch.setIcons(iv.map(x=>PW[x].e).join(""));
-   r.ch.setFx({gh:pr.gh,bt:pr.bt,fz:pr.fz});
+   r.ch.setFx({gh:pr.gh,bt:pr.bt,fz:pr.fz,dz:pr.dz});
    if(Array.isArray(pr.tk)){const now=performance.now();for(const id of pr.tk.slice(0,30)){const bx=pwBoxes[id];if(bx&&!bx.takenUntil)boxTaken(bx,now);}}
    if(pr.use&&typeof pr.use==="object"&&pr.use.k!==r.useK){const first=r.useK===undefined;r.useK=pr.use.k;
      if(!first&&PW[pr.use.ty]&&Array.isArray(pr.use.f)){const fx=num(pr.use.f[0],-1,1)||0,fz=num(pr.use.f[1],-1,1)||0;
@@ -1948,12 +1962,19 @@ function rtcTexts(){
   $("waBtn").href="https://wa.me/?text="+encodeURIComponent(t("waText")+(RTC.code?" ("+RTC.code+") ":" ")+GAME_URL);
   $("shareUrl").textContent=GAME_URL;
   $("rtcLeave").classList.toggle("hidden",!RTC.code);
+  $("rtcNew").classList.toggle("hidden",!!RTC.code);$("rtcBig").classList.toggle("hidden",!RTC.code);
+  $("rtcLbl1").textContent=t("rtcLbl1");$("rtcLbl2").textContent=t("rtcLbl2");$("rtcBigLbl").textContent=t("rtcBigLbl");
+  $("rtcBigCode").textContent=RTC.code||"";$("rtcBigN").textContent=t("rtcBigN").replace("{n}",RTC.count());
+  roomPillUpd();
   let msg=rtcLast?t(rtcLast):"";
   if(rtcLast==="rtcRoom"&&RTC.code)msg=t("rtcRoom").replace("{c}",RTC.code).replace("{n}",RTC.count())+(RTC.isHost?t("rtcHost"):"");
   $("rtcInfo").textContent=msg;
   $("mpStatus").textContent=t("mpNow")+" "+$("netTxt").textContent;
 }
+function roomPillUpd(){let el=$("roomPill");if(!el){el=document.createElement("div");el.id="roomPill";el.className="pill";el.style.cssText="background:#fde047;color:#1e293b;font-weight:900;font-size:17px;letter-spacing:3px;border:3px solid #f59e0b";const n=$("net");n.parentNode.insertBefore(el,n.nextSibling);}
+  el.classList.toggle("hidden",!RTC.code);el.textContent="🔑 "+(RTC.code||"")+" · 👥"+RTC.count();}
 RTC.onStatus(k=>{rtcLast=k;rtcTexts();});
+setInterval(()=>{try{roomPillUpd();}catch(e){}},1500);
 setInterval(()=>{if(!$("mpOv").classList.contains("hidden"))rtcTexts();},1000);
 $("rtcCreate").onclick=()=>{Snd.init();Snd.play("click");RTC.create();};
 $("rtcEdit").onclick=()=>{Snd.init();Snd.play("click");openEditor(()=>RTC.create());};
@@ -2107,6 +2128,7 @@ function updateProjs(dt){
 }
 function applyAttackToBot(b,ty,nx,nz){
   if(ty==="ice"){b.frozen=3;b.ch.say("🥶");}
+  else if(ty==="cream"||ty==="choc"){b.dizzy=5;b.ch.say(ty==="cream"?"🍦😵💫":"🍫😵💫");Snd.play("dizzy");}
   else{b.body.kx=nx*16;b.body.kz=nz*16;b.body.vy=8;b.body.grounded=false;b.ch.say(ty==="fart"?"🤢":ty==="cream"?"🍦😵":ty==="choc"?"🍫😵":"💦");}
 }
 function receiveAttack(fromPeer,ty,nx,nz){
@@ -2114,6 +2136,7 @@ function receiveAttack(fromPeer,ty,nx,nz){
   const ri=inv.indexOf("reverse");
   if(ri>=0){inv.splice(ri,1);saveInv();Snd.play("reverse");pwNote("🔄 "+t("pwReflected"));sendAttack([{to:fromPeer,ty,x:r2(-nx),z:r2(-nz)}]);return;}
   if(ty==="ice"){fxState.frozen=3;Snd.play("freeze");toast("🥶 "+t("pwFrozen"),1200);}
+  else if(ty==="cream"||ty==="choc"){fxState.dizzy=5;Snd.play("splat");Snd.play("dizzy");toast((ty==="cream"?"🍦":"🍫")+" 😵💫 "+t("pwDizzy"),1500,true);}
   else{me.kx=nx*16;me.kz=nz*16;me.vy=Math.max(me.vy,8);me.grounded=false;Snd.play(ty==="fart"?"fart":ty==="water"?"splash":"splat");toast(ty==="fart"?"🤢💨":ty==="cream"?"🍦💥":ty==="choc"?"🍫💥":"💦",900,true);}
   sendFx();
 }
@@ -2139,12 +2162,12 @@ function updateParts(dt){
     const k=p.life/p.max;p.m.material.opacity=0.8*k;if(p.size>=0.4)p.m.scale.setScalar(p.size*(1.8-k));}
 }
 function updateFx(dt){
-  const was={g:fxState.ghost>0,b:fxState.boots>0,f:fxState.frozen>0};
-  fxState.ghost=Math.max(0,fxState.ghost-dt);fxState.boots=Math.max(0,fxState.boots-dt);fxState.frozen=Math.max(0,fxState.frozen-dt);
-  if(was.g!==(fxState.ghost>0)||was.b!==(fxState.boots>0)||was.f!==(fxState.frozen>0))sendFx();
-  meChar.setFx({gh:fxState.ghost>0,bt:fxState.boots>0,fz:fxState.frozen>0});
+  const was={g:fxState.ghost>0,b:fxState.boots>0,f:fxState.frozen>0,d:(fxState.dizzy||0)>0};
+  fxState.ghost=Math.max(0,fxState.ghost-dt);fxState.boots=Math.max(0,fxState.boots-dt);fxState.frozen=Math.max(0,fxState.frozen-dt);fxState.dizzy=Math.max(0,(fxState.dizzy||0)-dt);
+  if(was.g!==(fxState.ghost>0)||was.b!==(fxState.boots>0)||was.f!==(fxState.frozen>0)||was.d!==(fxState.dizzy>0))sendFx();
+  meChar.setFx({gh:fxState.ghost>0,bt:fxState.boots>0,fz:fxState.frozen>0,dz:fxState.dizzy>0});
   const P=$("fxPills");const pl=[];
-  if(fxState.ghost>0)pl.push("👻 "+Math.ceil(fxState.ghost)+"s");if(fxState.boots>0)pl.push("🥾 "+Math.ceil(fxState.boots)+"s");if(fxState.frozen>0)pl.push("🧊 "+Math.ceil(fxState.frozen)+"s");
+  if(fxState.ghost>0)pl.push("👻 "+Math.ceil(fxState.ghost)+"s");if(fxState.boots>0)pl.push("🥾 "+Math.ceil(fxState.boots)+"s");if(fxState.frozen>0)pl.push("🧊 "+Math.ceil(fxState.frozen)+"s");if(fxState.dizzy>0)pl.push("😵💫 "+Math.ceil(fxState.dizzy)+"s");
   const txt=pl.join("  ");if(P.textContent!==txt)P.textContent=txt;
 }
 // boots: invisible floor at the height of the last real ground
@@ -2157,7 +2180,7 @@ function bootsFloor(){
 }
 // ---- network helpers
 function sendInv(){if(room)room.presence({inv:inv.slice(0,MAXINV)}).catch(()=>{});}
-function sendFx(){if(room)room.presence({gh:fxState.ghost>0?1:0,bt:fxState.boots>0?1:0,fz:fxState.frozen>0?1:0}).catch(()=>{});}
+function sendFx(){if(room)room.presence({gh:fxState.ghost>0?1:0,bt:fxState.boots>0?1:0,fz:fxState.frozen>0?1:0,dz:fxState.dizzy>0?1:0}).catch(()=>{});}
 function sendTaken(){if(room)room.presence({tk:myTaken.map(x=>x.id).slice(-20)}).catch(()=>{});}
 function sendAttack(list){atkK++;if(room)room.presence({atk:{k:atkK,l:list.slice(0,8)}}).catch(()=>{});}
 
@@ -2510,7 +2533,8 @@ function frame(now){
   if(paused){renderer.render(scene,camera);return;}
   const dt=Math.min(0.05,(now-last)/1000);last=now;tmAcc+=dt;
   if(playing&&startT&&!me.won)elapsed=(now-startT)/1000;
-  const iv=(playing&&fxState.frozen<=0)?inputVec():{x:0,z:0};
+  let iv=(playing&&fxState.frozen<=0)?inputVec():{x:0,z:0};
+  if(fxState.dizzy>0&&(iv.x||iv.z)){const a=Math.sin(performance.now()/380)*1.1,c=Math.cos(a),sn=Math.sin(a);iv={x:(iv.x*c-iv.z*sn)*0.6,z:(iv.x*sn+iv.z*c)*0.6};}
   if(fxState.frozen>0)jumpBuf=0;
   if(jumpBuf>0)jumpBuf-=dt;
   const riding=updateRide(dt);
