@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-54JJ46D9');</script>
+<!-- End Google Tag Manager -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <title>EZ Obby (WebRTC)</title>
@@ -139,6 +142,7 @@
 </style>
 </head>
 <body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-54JJ46D9" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <canvas id="c"></canvas>
 
 <div id="hud" class="hidden">
@@ -233,7 +237,7 @@
       <div id="rtcBigN" style="font-weight:700;font-size:15px;color:#78350f"></div>
     </div>
     <div id="rtcNew"><div id="rtcLbl1" style="font-weight:800;font-size:16px;color:#1e293b;margin:4px 0"></div>
-    <div class="share"><button id="rtcCreate" style="background:#22c55e;font-size:18px;padding:14px"></button><button id="rtcEdit" style="background:#8b5cf6"></button></div>
+    <div class="share"><button id="rtcCreate" style="background:#22c55e;font-size:18px;padding:14px"></button></div>
     <div id="rtcLbl2" style="font-weight:800;font-size:16px;color:#1e293b;margin:10px 0 4px"></div>
     <div class="share"><input id="rtcCode" maxlength="4" autocomplete="off" style="flex:1;min-width:0;font:inherit;font-size:18px;padding:10px;border:2px solid #cbd5e1;border-radius:12px;text-transform:uppercase;text-align:center;letter-spacing:4px"><button id="rtcJoin" style="background:#f59e0b;font-size:18px"></button></div></div>
     <div id="rtcInfo" class="info" style="font-weight:700;font-size:15px;color:#1e40af"></div>
@@ -249,8 +253,10 @@
   </div>
 </div>
 
-<div id="diffOv" class="overlay hidden" style="flex-direction:column;gap:14px;background:rgba(10,20,40,.9)">
-  <b id="diffTitle" style="color:#fff;font-size:24px;text-align:center"></b>
+<div id="diffOv" class="overlay hidden" style="flex-direction:column;justify-content:flex-start;gap:12px;background:rgba(10,20,40,.92);overflow-y:auto;padding:16px 10px 24px">
+  <div style="text-align:center;background:#fde047;border-radius:18px;padding:10px 18px;box-shadow:0 5px 0 #d97706;max-width:min(700px,94vw)">
+    <b id="diffTitle" style="color:#1e293b;font-size:clamp(22px,5vw,32px);display:block"></b>
+    <span id="diffSub" style="color:#78350f;font-weight:800;font-size:clamp(15px,3.6vw,19px)"></span></div>
   <div id="diffCards" style="display:flex;gap:14px;flex-wrap:wrap;justify-content:center;width:min(1150px,96vw)"></div>
   <button class="sec" id="diffBack" style="max-width:220px"></button>
 </div>
@@ -388,17 +394,17 @@ Object.assign(T.en,{pw_fart:"Fart blast",pw_water:"Water bucket",pw_ice:"Ice buc
 Object.assign(T.es,{pw_fart:"Pedo hacia atrás",pw_water:"Cubo de agua",pw_ice:"Cubo de hielo",pw_ghost:"Intangible",pw_boots:"Botas voladoras",pw_angel:"Ángel",pw_reverse:"Reversa",
   pwHint:"J usa · U cambia",pwDizzy:"¡Mareado! 5s",pwAuto:"¡funciona solo cuando hace falta!",pwBlocked:"¡Ataque bloqueado!",pwReflected:"¡Ataque devuelto!",pwFrozen:"¡Congelado!",pwSaved:"¡El ángel te salvó!",invSaved:"🎒 Poderes guardados:",invNone:"ninguno aún — tómalos de los cubos desde la fase 2"});
 Object.assign(T.pt,{thn:{playground:"Parquinho",sky:"Céu",ice:"Gelo",math:"Contas",forest:"Floresta",city:"Cidade",temple:"Pedra Gigante",riddle:"Charadas",classroom:"Professora",neon:"Neon",lava:"Lava"},
-  mapTitle:"🗺️ Mapa do trajeto",diffTitle:"Escolha o seu trajeto!",diffLbl:"Dificuldade:",d0:"Pudim",d1:"Sorvete",d2:"Chocolate",d0s:"Plataformas grandes e pulos curtinhos",d1s:"O trajeto normal",d2s:"Plataformas pequenas e pulos longos!",mapSkip:"Avançar ▶",map2d:"🗺️ Mapa 2D",mapStart:"🎥 Sobrevoando o trajeto… clique em Avançar quando quiser",specLoaded:"🗺️ Trajeto do anfitrião carregado!",
+  mapTitle:"🗺️ Mapa do trajeto",diffTitle:"🗺️ Escolha o seu trajeto!",diffSub:"👇 Toque em um dos trajetos para começar",diffLbl:"Dificuldade:",d0:"Pudim",d1:"Sorvete",d2:"Chocolate",d0s:"Plataformas grandes e pulos curtinhos",d1s:"O trajeto normal",d2s:"Plataformas pequenas e pulos longos!",mapSkip:"Avançar ▶",map2d:"🗺️ Mapa 2D",mapStart:"🎥 Sobrevoando o trajeto… clique em Avançar quando quiser",specLoaded:"🗺️ Trajeto do anfitrião carregado!",
   s_stairs:"🏢 Suba pela escada de fora!",s_stairsIn:"🚪 Entre pela porta laranja\ne suba a escada de dentro!",s_zip:"🪢 Tirolesa!\nEncoste na alça vermelha",s_belt:"➡️ Esteira rolante!\nEla te leva pra frente",s_beltBack:"⬅️ Esteira ao contrário!\nCorra contra ela",
   edTitle:"✏️ Editar trajeto",edHint:"Arraste no mapa: trechos (para os lados = curvas), obstáculos 🚧, quadrados de poder e a professora 👩‍🏫.",edUndo:"↶ Desfazer",edRand:"🎲 Aleatório",edReset:"↺ Padrão",edOk:"✅ Usar trajeto",edCancel:"Cancelar",
   edStages:"Fases:",edCurves:"Curvas:",edObs:"Obstáculos:",edBoxes:"Quadrados:",edC0:"Retas",edC1:"Normal",edC2:"Muitas",edO0:"Menos",edO1:"Normal",edO2:"Mais",edB0:"Poucos",edB1:"Normal",edB2:"Muitos",edOpen:"✏️ Editar trajeto antes de criar a sala"});
 Object.assign(T.en,{thn:{playground:"Playground",sky:"Sky",ice:"Ice",math:"Math",forest:"Forest",city:"City",temple:"Giant Boulder",riddle:"Riddles",classroom:"Teacher",neon:"Neon",lava:"Lava"},
-  mapTitle:"🗺️ Course map",diffTitle:"Pick your course!",diffLbl:"Difficulty:",d0:"Pudding",d1:"Ice cream",d2:"Chocolate",d0s:"Big platforms and short jumps",d1s:"The normal course",d2s:"Small platforms and long jumps!",mapSkip:"Continue ▶",map2d:"🗺️ 2D map",mapStart:"🎥 Flying over the course… tap Continue when ready",specLoaded:"🗺️ Host's course loaded!",
+  mapTitle:"🗺️ Course map",diffTitle:"🗺️ Pick your course!",diffSub:"👇 Tap one of the courses to start",diffLbl:"Difficulty:",d0:"Pudding",d1:"Ice cream",d2:"Chocolate",d0s:"Big platforms and short jumps",d1s:"The normal course",d2s:"Small platforms and long jumps!",mapSkip:"Continue ▶",map2d:"🗺️ 2D map",mapStart:"🎥 Flying over the course… tap Continue when ready",specLoaded:"🗺️ Host's course loaded!",
   s_stairs:"🏢 Climb the outside stairs!",s_stairsIn:"🚪 Go in through the orange door\nand climb the inside stairs!",s_zip:"🪢 Zip line!\nTouch the red handle",s_belt:"➡️ Conveyor belt!\nIt carries you forward",s_beltBack:"⬅️ Reverse belt!\nRun against it",
   edTitle:"✏️ Edit course",edHint:"Drag on the map: stretches (sideways = curves), obstacles 🚧, power boxes and the teacher 👩‍🏫.",edUndo:"↶ Undo",edRand:"🎲 Random",edReset:"↺ Default",edOk:"✅ Use course",edCancel:"Cancel",
   edStages:"Stages:",edCurves:"Curves:",edObs:"Obstacles:",edBoxes:"Boxes:",edC0:"Straight",edC1:"Normal",edC2:"Lots",edO0:"Fewer",edO1:"Normal",edO2:"More",edB0:"Few",edB1:"Normal",edB2:"Many",edOpen:"✏️ Edit the course before creating the room"});
 Object.assign(T.es,{thn:{playground:"Parque",sky:"Cielo",ice:"Hielo",math:"Cuentas",forest:"Bosque",city:"Ciudad",temple:"Roca Gigante",riddle:"Adivinanzas",classroom:"Profesora",neon:"Neón",lava:"Lava"},
-  mapTitle:"🗺️ Mapa del recorrido",diffTitle:"¡Elige tu recorrido!",diffLbl:"Dificultad:",d0:"Flan",d1:"Helado",d2:"Chocolate",d0s:"Plataformas grandes y saltos cortitos",d1s:"El recorrido normal",d2s:"¡Plataformas pequeñas y saltos largos!",mapSkip:"Avanzar ▶",map2d:"🗺️ Mapa 2D",mapStart:"🎥 Sobrevolando el recorrido… pulsa Avanzar cuando quieras",specLoaded:"🗺️ ¡Recorrido del anfitrión cargado!",
+  mapTitle:"🗺️ Mapa del recorrido",diffTitle:"🗺️ ¡Elige tu recorrido!",diffSub:"👇 Toca uno de los recorridos para empezar",diffLbl:"Dificultad:",d0:"Flan",d1:"Helado",d2:"Chocolate",d0s:"Plataformas grandes y saltos cortitos",d1s:"El recorrido normal",d2s:"¡Plataformas pequeñas y saltos largos!",mapSkip:"Avanzar ▶",map2d:"🗺️ Mapa 2D",mapStart:"🎥 Sobrevolando el recorrido… pulsa Avanzar cuando quieras",specLoaded:"🗺️ ¡Recorrido del anfitrión cargado!",
   s_stairs:"🏢 ¡Sube por la escalera de fuera!",s_stairsIn:"🚪 Entra por la puerta naranja\n¡y sube por la escalera de dentro!",s_zip:"🪢 ¡Tirolesa!\nToca el asa roja",s_belt:"➡️ ¡Cinta transportadora!\nTe lleva hacia adelante",s_beltBack:"⬅️ ¡Cinta al revés!\nCorre contra ella",
   edTitle:"✏️ Editar recorrido",edHint:"Arrastra en el mapa: tramos (a los lados = curvas), obstáculos 🚧, cubos de poder y la profesora 👩‍🏫.",edUndo:"↶ Deshacer",edRand:"🎲 Aleatorio",edReset:"↺ Original",edOk:"✅ Usar recorrido",edCancel:"Cancelar",
   edStages:"Fases:",edCurves:"Curvas:",edObs:"Obstáculos:",edBoxes:"Cubos:",edC0:"Rectas",edC1:"Normal",edC2:"Muchas",edO0:"Menos",edO1:"Normal",edO2:"Más",edB0:"Pocos",edB1:"Normal",edB2:"Muchos",edOpen:"✏️ Editar el recorrido antes de crear la sala"});
@@ -1087,10 +1093,13 @@ function segBuilding(s,i,sg,th){
     addBox(cx,cy+h/2,zc,6.4,h,10,BWALL,"solid",{seg:[curStage,curSeg],bldg:true});
     addBox(cx,top+0.05,zc,6.4,0.1,10,getMat(0x475569),"deco");
     for(let k=0;k<Math.floor(h/1.5);k++)addBox(cx,cy+k*1.5+0.75,zc,6.45,0.12,10.05,getMat(0x1e3a8a),"deco");
-    const n=Math.ceil(h/0.5),run=9.4/n;
+    const n=Math.ceil(h/0.5),run=Math.min(0.72,7.6/n),se=fz+0.3+n*run;
+    // top landing (bridges to the roof) + safety rail at the back so kids don't run off the edge
+    addBox(cx+4.2,top-0.25,(se+bz)/2,2,0.5,bz-se,getMat(0xfacc15),"solid");
+    addBox(cx+4.45,top+0.6,bz-0.1,1.7,1.2,0.2,getMat(0xef4444),"solid");
     for(let k=0;k<n;k++){const tp=Math.min(h,(k+1)*0.5);addBox(cx+4.45,cy+tp/2,fz+0.3+(k+0.5)*run,1.5,tp,run,getMat(0xfacc15),"solid");}
     addBox(cx+5.3,cy+h/2+0.6,zc,0.1,h+1.2,10,getMat(0xef4444),"deco");
-    wps.push({x:cx+4.45,y:cy,z:fz+0.2});wps.push({x:cx+4.45,y:cy+h/2,z:zc});wps.push({x:cx+4.45,y:top,z:bz-0.6});wps.push({x:cx+3,y:top,z:bz-0.6});wps.push({x:cx,y:top,z:bz-1.5});
+    wps.push({x:cx+4.45,y:cy,z:fz+0.2});wps.push({x:cx+4.45,y:cy+h/2,z:zc});wps.push({x:cx+4.45,y:top,z:bz-1.2});wps.push({x:cx+2.6,y:top,z:bz-1.2});wps.push({x:cx,y:top,z:bz-1.2});wps.push({x:cx,y:top,z:bz-0.3});
     const DOOR=getMat(0xf97316),MAT=getMat(0xdc2626);
     addBox(cx+3.6,cy+1.6,fz-0.05,0.25,3.2,0.25,DOOR,"deco");addBox(cx+5.3,cy+1.6,fz-0.05,0.25,3.2,0.25,DOOR,"deco");addBox(cx+4.45,cy+3.3,fz-0.05,1.95,0.3,0.25,DOOR,"deco");
     addBox(cx+4.45,cy+0.03,fz-0.6,1.6,0.04,1,MAT,"deco");
@@ -1102,14 +1111,16 @@ function segBuilding(s,i,sg,th){
     addBox(cx,cy+h-0.6,fz+0.15,2.4,1.2,0.3,BWALL,"solid");
     const hz=fz+5.2;
     addBox(cx+1.25,top-0.15,zc,5.5,0.3,bz-fz,GLASS,"solid",{seg:[curStage,curSeg]});
-    const n=Math.ceil(h/0.5),run=8.6/n;
+    const n=Math.ceil(h/0.5),run=Math.min(0.65,7.8/n),se=fz+1.1+n*run;
+    addBox(cx-2.45,top-0.25,(se+bz-0.3)/2,1.6,0.5,bz-0.3-se,getMat(0xfacc15),"solid");
     for(let k=0;k<n;k++){const tp=Math.min(h,(k+1)*0.5);addBox(cx-2.45,cy+tp/2,fz+1.1+(k+0.5)*run,1.6,tp,run,getMat(0xfacc15),"solid");}
-    wps.push({x:cx,y:cy,z:fz+0.9});wps.push({x:cx-2.45,y:cy+0.5,z:fz+1.4});wps.push({x:cx-2.45,y:cy+h/2,z:fz+5});wps.push({x:cx-2.45,y:top,z:bz-0.5});wps.push({x:cx+1.2,y:top,z:bz-1.2});
+    wps.push({x:cx,y:cy,z:fz+0.9});wps.push({x:cx-2.45,y:cy+0.5,z:fz+1.4});wps.push({x:cx-2.45,y:cy+h/2,z:fz+5});wps.push({x:cx-2.45,y:top,z:bz-1.2});wps.push({x:cx,y:top,z:bz-1.2});wps.push({x:cx,y:top,z:bz-0.3});
     const DOOR=getMat(0xf97316),MAT=getMat(0xdc2626),dTop=cy+h-1.2;
     addBox(cx-1.3,cy+(h-1.2)/2,fz-0.05,0.3,h-1.2,0.4,DOOR,"deco");addBox(cx+1.3,cy+(h-1.2)/2,fz-0.05,0.3,h-1.2,0.4,DOOR,"deco");addBox(cx,dTop+0.15,fz-0.05,2.9,0.3,0.4,DOOR,"deco");
     addBox(cx,cy+0.03,fz-0.7,2.4,0.04,1.2,MAT,"deco");addBox(cx,cy+0.03,fz+1,2.2,0.04,1.4,MAT,"deco");
     addSign("s_stairsIn",cx,dTop+1.3,fz-0.4);
   }
+  {const hw=style==="ext"?3.2:4;addBox(cx-(hw+0.7)/2,top+0.4,bz-0.15,hw-0.7,0.8,0.3,getMat(0xef4444),"solid");addBox(cx+(hw+0.7)/2,top+0.4,bz-0.15,hw-0.7,0.8,0.3,getMat(0xef4444),"solid");}
   regSeg({kind:"bldg",z:zc,w:style==="ext"?9.8:8,d:10,h,style});
   addCoin(cx,top+1.3,bz-2);
   cy=top;edge=bz;
@@ -1449,7 +1460,8 @@ function die(kind){
 }
 function setFlag(i){for(let s=1;s<flags.length;s++){if(flags[s])flags[s].fm.color.set(s<=i?0x22c55e:0x9ca3af);}}
 setFlag(0);
-function reachCp(i,silent){
+function track(ev,params){try{(window.dataLayer=window.dataLayer||[]).push(Object.assign({event:ev},params||{}));}catch(e){}}
+function reachCp(i,silent){if(!silent&&mode==="atk"&&i>0)track("ez_stage",{stage:i,stage_name:stageKey[i]||"",difficulty:SPEC.diff==null?1:SPEC.diff});
   me.cp=i;setFlag(i);
   if(!silent){toast(t("cp"));Snd.play("cp");addPts(100);}
   if(i>=1&&!startT){startT=performance.now();}
@@ -1806,13 +1818,13 @@ $("mpGo").onclick=()=>{$("mpOv").classList.add("hidden");if(mpTarget==="tab"){st
 let mpStart=false,diffBuilt=false;
 const DIFFS=[{k:"d0",e:"🍮",c:"#f59e0b"},{k:"d1",e:"🍦",c:"#ec4899"},{k:"d2",e:"🍫",c:"#7c2d12"}];
 function showDiffPicker(cb,back){
-  const ov=$("diffOv"),C=$("diffCards");ov.classList.remove("hidden");$("diffTitle").textContent=t("diffTitle");$("diffBack").textContent=t("back");
+  const ov=$("diffOv"),C=$("diffCards");ov.classList.remove("hidden");$("diffTitle").textContent=t("diffTitle");$("diffSub").textContent=t("diffSub");$("diffBack").textContent=t("back");
   const cur=diffLvl();
   if(!diffBuilt||C.dataset.lang!==lang){C.innerHTML="";C.dataset.lang=lang;
     DIFFS.forEach((d,i)=>{const b=document.createElement("button");b.className="diffCard";b.style.cssText="flex:1 1 300px;max-width:370px;background:#fff;border-radius:18px;padding:10px;display:flex;flex-direction:column;gap:6px;align-items:stretch;border:4px solid transparent;box-shadow:0 6px 0 "+d.c;
       const h=document.createElement("div");h.style.cssText="font-size:24px;font-weight:800;color:"+d.c;h.textContent=d.e+" "+t(d.k);
       const sub=document.createElement("div");sub.style.cssText="font-size:13px;color:#475569;font-weight:600";sub.textContent=t(d.k+"s");
-      const cv=document.createElement("canvas");cv.style.cssText="width:100%;height:190px;background:#1e293b;border-radius:12px";
+      const cv=document.createElement("canvas");cv.style.cssText="width:100%;height:clamp(110px,22vh,190px);background:#1e293b;border-radius:12px";
       b.append(h,cv,sub);C.appendChild(b);});
     diffBuilt=false;}
   [...C.children].forEach((b,i)=>{b.style.borderColor=i===cur?DIFFS[i].c:"transparent";
@@ -1823,21 +1835,23 @@ function showDiffPicker(cb,back){
 $("playBtn").onclick=()=>{
   leaveTab();
   const fromMp=mpStart;mpStart=false;
-  if(!fromMp&&!(EDITOR&&room&&room.connected&&room.connected())){$("menu").classList.add("hidden");showDiffPicker(()=>startAtk(),()=>$("menu").classList.remove("hidden"));return;}
-  if(!EDITOR&&SPEC.diff!==1)rebuildLevel(diffSpec(1));
+  // RTC: the host picks the course and guests receive it · Claude room: everyone plays the normal course
+  const guest=SPEC_SYNC&&mpGuest();
+  if(!guest&&!(fromMp&&!SPEC_SYNC)){$("menu").classList.add("hidden");showDiffPicker(()=>startAtk(),()=>$("menu").classList.remove("hidden"));return;}
+  if(fromMp&&!SPEC_SYNC&&SPEC.diff!==1)rebuildLevel(diffSpec(1));
   startAtk();
 };
-function startAtk(){
+function startAtk(){track("ez_play",{mode:"parkour",difficulty:SPEC.diff==null?1:SPEC.diff,multiplayer:room&&room.connected&&room.connected()?1:0});
   if(me.cp===0&&savedCp>=1){reachCp(savedCp,true);spawnAt(savedCp);startT=performance.now();var rsm=savedCp;}
   $("menu").classList.add("hidden");showCourseMap(()=>{if(startT)startT=performance.now();startPlaying();if(rsm)setTimeout(()=>toast(t("resumed").replace("{n}",rsm)),400);});
 }
-$("restartBtn").onclick=()=>{leaveTab();resetCoins();savedCp=0;store("ezobby_cp","0");me.cp=0;me.won=false;setFlag(0);spawnAt(0);startT=0;elapsed=0;$("menu").classList.add("hidden");showDiffPicker(()=>showCourseMap(startPlaying),()=>$("menu").classList.remove("hidden"));};
+$("restartBtn").onclick=()=>{leaveTab();resetCoins();savedCp=0;store("ezobby_cp","0");me.cp=0;me.won=false;setFlag(0);spawnAt(0);startT=0;elapsed=0;$("menu").classList.add("hidden");if(SPEC_SYNC&&mpGuest())showCourseMap(startPlaying);else showDiffPicker(()=>showCourseMap(startPlaying),()=>$("menu").classList.remove("hidden"));};
 $("menuBtn").onclick=()=>{playing=false;for(const k in keys)keys[k]=false;$("menu").classList.remove("hidden");$("hud").classList.add("hidden");buildMenu();resizePreview();};
 $("chatBtn").onclick=()=>$("chatRow").classList.toggle("hidden");
 $("pauseBtn").onclick=()=>setPause(true);
 $("resumeBtn").onclick=()=>setPause(false);
 $("pMenuBtn").onclick=()=>{setPause(false);$("menuBtn").onclick();};
-function showWin(){$("winTime").textContent=t("time")+": "+fmtTime(me.winTime);$("win").classList.remove("hidden");playing=false;Snd.play("win");store("ezobby_cp","1");savedCp=1;}
+function showWin(){track("ez_finish",{time_s:Math.round(me.winTime||0),difficulty:SPEC.diff==null?1:SPEC.diff});$("winTime").textContent=t("time")+": "+fmtTime(me.winTime);$("win").classList.remove("hidden");playing=false;Snd.play("win");store("ezobby_cp","1");savedCp=1;}
 $("againBtn").onclick=()=>{$("win").classList.add("hidden");resetCoins();me.won=false;me.cp=1;setFlag(1);spawnAt(1);startT=performance.now();elapsed=0;playing=true;sendState(true);};
 $("stayBtn").onclick=()=>{$("win").classList.add("hidden");playing=true;};
 
@@ -1916,7 +1930,7 @@ const RTC=(function(){
     if(!code||!myId)return;tick++;
     const now=Date.now();
     if(isHost){for(const id of Object.keys(seen)){if(now-seen[id]>10000){const c=conns.get(id);conns.delete(id);delete pres[id];delete seen[id];try{c&&c.close();}catch(e){}status("rtcRoom");}}
-      pres[myId]=myP;const snap={t:"s",p:pres};for(const c of conns.values())if(c.open){c.send(snap);if(!c.specOk&&now-(c.specT||0)>1500){c.specT=now;c.send({t:"spec",spec:SPEC});}}emit();}
+      pres[myId]=myP;const snap={t:"s",p:pres};for(const c of conns.values())if(c.open){c.send(snap);if(c.specV!==specVer&&now-(c.specT||0)>1500){c.specT=now;c.send({t:"spec",spec:SPEC,v:specVer});}}emit();}
     else if(hostConn&&hostConn.open&&lastSnap&&now-lastSnap>10000){reset("rtcHostLeft");}
     else if(hostConn&&hostConn.open&&(dirty||now-lastSent>900)){hostConn.send({t:"p",p:myP});dirty=false;lastSent=now;}
   },66);
@@ -1928,7 +1942,7 @@ const RTC=(function(){
     pr.on("connection",cn=>{
       if(conns.size>=MAX-1){cn.on("open",()=>{cn.send({t:"full"});setTimeout(()=>cn.close(),400);});return;}
       cn.on("open",()=>{conns.set(cn.peer,cn);seen[cn.peer]=Date.now();cn.specT=0;status("rtcRoom");});
-      cn.on("data",d=>{if(d&&d.t==="sa")cn.specOk=true;if(d&&d.t==="p"&&conns.has(cn.peer)){const p=safe(d.p);if(p){pres[cn.peer]=p;seen[cn.peer]=Date.now();}}});
+      cn.on("data",d=>{if(d&&d.t==="sa")cn.specV=d.v;if(d&&d.t==="p"&&conns.has(cn.peer)){const p=safe(d.p);if(p){pres[cn.peer]=p;seen[cn.peer]=Date.now();}}});
       cn.on("close",()=>{conns.delete(cn.peer);delete pres[cn.peer];delete seen[cn.peer];emit();status("rtcRoom");});
     });
     pr.on("error",e=>{if(peer!==pr)return;if(e.type==="unavailable-id")create();else if(!code)reset("rtcFail");});
@@ -1942,7 +1956,7 @@ const RTC=(function(){
       hc.on("open",()=>{clearTimeout(to);lastSnap=Date.now();code=c;dirty=true;if(connFn)connFn(true);status("rtcRoom");});
       hc.on("data",d=>{if(!d||hostConn!==hc)return;
         if(d.t==="full"){hc.full=true;reset("rtcFull");return;}
-        if(d.t==="spec"){try{applyRemoteSpec(d.spec);}catch(e){}hc.send({t:"sa"});return;}
+        if(d.t==="spec"){try{applyRemoteSpec(d.spec);}catch(e){}hc.send({t:"sa",v:d.v});return;}
         if(d.t==="s"&&d.p&&typeof d.p==="object"){lastSnap=Date.now();const np={};let n=0;for(const k in d.p){if(++n>MAX)break;const p=safe(d.p[k]);if(p)np[k]=p;}pres=np;emit();}});
       hc.on("close",()=>{if(hostConn!==hc||hc.full)return;reset("rtcHostLeft");});
     });
@@ -1957,7 +1971,7 @@ room.onPeers(onPeers);
 setTimeout(()=>{sendLook();sendState(true);sendInv();sendFx();},0);
 let rtcLast="";
 function rtcTexts(){
-  $("rtcCreate").textContent=t("rtcCreate");$("rtcEdit").textContent=t("edOpen");$("rtcEdit").classList.toggle("hidden",!!RTC.code);$("rtcJoin").textContent=t("rtcJoin");$("rtcCode").placeholder=t("rtcCodePh");$("rtcLeave").textContent=t("rtcLeave");
+  $("rtcCreate").textContent=t("rtcCreate");$("rtcJoin").textContent=t("rtcJoin");$("rtcCode").placeholder=t("rtcCodePh");$("rtcLeave").textContent=t("rtcLeave");
   GAME_URL=RTC.code?GAME_BASE+"?sala="+RTC.code:GAME_BASE;
   $("waBtn").href="https://wa.me/?text="+encodeURIComponent(t("waText")+(RTC.code?" ("+RTC.code+") ":" ")+GAME_URL);
   $("shareUrl").textContent=GAME_URL;
@@ -1976,9 +1990,8 @@ function roomPillUpd(){let el=$("roomPill");if(!el){el=document.createElement("d
 RTC.onStatus(k=>{rtcLast=k;rtcTexts();});
 setInterval(()=>{try{roomPillUpd();}catch(e){}},1500);
 setInterval(()=>{if(!$("mpOv").classList.contains("hidden"))rtcTexts();},1000);
-$("rtcCreate").onclick=()=>{Snd.init();Snd.play("click");RTC.create();};
-$("rtcEdit").onclick=()=>{Snd.init();Snd.play("click");openEditor(()=>RTC.create());};
-$("rtcJoin").onclick=()=>{Snd.init();Snd.play("click");const c=$("rtcCode").value.trim().toUpperCase();if(/^[A-Z]{4}$/.test(c))RTC.join(c);};
+$("rtcCreate").onclick=()=>{Snd.init();Snd.play("click");RTC.create();track("ez_room_create");};
+$("rtcJoin").onclick=()=>{Snd.init();Snd.play("click");const c=$("rtcCode").value.trim().toUpperCase();if(/^[A-Z]{4}$/.test(c)){RTC.join(c);track("ez_room_join");}};
 $("rtcLeave").onclick=()=>{RTC.leave();};
 {const q=new URLSearchParams(location.search).get("sala");if(q&&/^[A-Za-z]{4}$/.test(q)){$("rtcCode").value=q.toUpperCase();setTimeout(()=>{RTC.join(q.toUpperCase());$("mpBtn").onclick();},400);}}
 
@@ -2237,7 +2250,7 @@ function tabEnsure(){
   while(TB.units.length>2&&TB.units[0].end<me.z-35&&TB.units[0]!==TB.curUnit&&(TB.riv||[]).every(r=>!r.u||TB.units.indexOf(r.u)>0)){tabRemoveUnit(TB.units.shift());}
 }
 function tabReset(){TB.units.forEach(tabRemoveUnit);TB.units=[];TB.nextZ=4;TB.count=0;TB.curUnit=null;}
-function startTab(t){
+function startTab(t){track("ez_play",{mode:"tabuada",table:t});
   tabBuildBase();tabReset();
   mode="tab";TB.t=t;TB.m=2;TB.rand=false;
   tabRespawnAtStart();tabEnsure();
@@ -2323,7 +2336,9 @@ function leaveTab(){
 }
 
 /* ================= course map & editor ================= */
-const EDITOR=true; // ligado só na versão WebRTC (build_rtc.py)
+const EDITOR=false; // editor removido
+const SPEC_SYNC=true; // true na versão WebRTC: anfitrião envia o trajeto
+function mpGuest(){return !!(RTC.code&&!RTC.isHost);}
 function thName(k){const m=t("thn");return (m&&m[k])||k;}
 function mapLayout(W,H){
   const zMin=-16,zMax=cps.length?cps[cps.length-1].z+8:100,L=zMax-zMin,XR=46,pad=14;
@@ -2409,7 +2424,8 @@ function showCourseMap(cb){
   $("mapSkip").onclick=()=>{Snd.play("click");done();};
 }
 // ---- rebuild helpers
-function rebuildLevel(spec){
+let specVer=0;
+function rebuildLevel(spec){specVer++;
   SPEC=spec;Snd.rumble(false);
   clearLevel();clearPwBoxes();buildGeometry(SPEC);placeBoxes(SPEC);
   me.cp=Math.min(me.cp,NSTAGE);savedCp=Math.min(savedCp,NSTAGE);setFlag(me.cp);
