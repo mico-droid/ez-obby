@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+<!-- Analytics: mesmo container GTM dos jogos Jatobá Tec. Sem dados pessoais; anúncios/personalização sempre negados. -->
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}
+gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:'granted'});gtag('set','ads_data_redaction',true);
+window.TRK_CTX={game_id:'ez-obby',app_mode:(matchMedia('(display-mode: standalone)').matches||navigator.standalone===true)?'app':'browser'};
+window.TRK=function(ev,p){try{dataLayer.push(Object.assign({event:ev},TRK_CTX,p||{}))}catch(e){}};dataLayer.push(TRK_CTX);</script>
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-54JJ46D9');</script>
 <!-- End Google Tag Manager -->
@@ -1474,7 +1479,9 @@ function die(kind){
 }
 function setFlag(i){for(let s=1;s<flags.length;s++){if(flags[s])flags[s].fm.color.set(s<=i?0x22c55e:0x9ca3af);}}
 setFlag(0);
-function track(ev,params){try{(window.dataLayer=window.dataLayer||[]).push(Object.assign({event:ev},params||{}));}catch(e){}}
+// nomes de evento padronizados com os outros jogos Jatobá Tec (game_start, game_end, level_complete…)
+const EV_MAP={ez_play:"game_start",ez_finish:"game_end",ez_stage:"level_complete",ez_pwa_installed:"app_installed",ez_room_create:"room_create",ez_room_join:"room_join"};
+function track(ev,params){TRK(EV_MAP[ev]||ev,params);}
 function reachCp(i,silent){if(!silent&&mode==="atk"&&i>0)track("ez_stage",{stage:i,stage_name:stageKey[i]||"",difficulty:SPEC.diff==null?1:SPEC.diff});
   me.cp=i;setFlag(i);
   if(!silent){toast(t("cp"));Snd.play("cp");addPts(100);}
@@ -1993,10 +2000,10 @@ function pwaTexts(){const b=$("pwaBtn"),i=$("pwaIos");if(!b)return;b.textContent
 if("serviceWorker" in navigator&&location.protocol.startsWith("http"))setTimeout(()=>navigator.serviceWorker.register("sw.js").catch(()=>{}),1500);
 window.addEventListener("beforeinstallprompt",e=>{e.preventDefault();pwaEvt=e;pwaTexts();});
 window.addEventListener("appinstalled",()=>{pwaEvt=null;pwaTexts();try{track("ez_pwa_installed");}catch(e){}});
-setTimeout(()=>{$("pwaBtn").onclick=async()=>{Snd.init();Snd.play("click");
+setTimeout(()=>{$("pwaBtn").addEventListener("click",()=>TRK("install_click",{}));$("pwaBtn").onclick=async()=>{Snd.init();Snd.play("click");
   if(pwaEvt){pwaEvt.prompt();const r=await pwaEvt.userChoice.catch(()=>null);if(r&&r.outcome==="accepted")track("ez_pwa_installed");pwaEvt=null;pwaTexts();}
   else $("pwaIos").classList.toggle("hidden");};
-  $("gShare").onclick=async()=>{Snd.init();Snd.play("click");const url=location.origin+location.pathname,txt=t("waText");
+  $("gShare").onclick=async()=>{Snd.init();Snd.play("click");TRK("share",{});const url=location.origin+location.pathname,txt=t("waText");
     try{if(navigator.share){await navigator.share({title:"EZ Obby",text:txt,url});return}}catch(e){if(e&&e.name==="AbortError")return}
     try{await navigator.clipboard.writeText(txt+" "+url);toast(t("copied"));}catch(e){prompt("",url);}};
   pwaTexts();},0);
