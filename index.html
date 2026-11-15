@@ -64,6 +64,8 @@ if(TRK_OFF)window.TRK=function(){};else (function(w,d,s,l,i){w[l]=w[l]||[];w[l].
   #jumpBtn{pointer-events:auto;position:absolute;right:22px;bottom:90px;width:92px;height:92px;border-radius:50%;background:rgba(34,197,94,.85);color:#fff;font-size:16px;font-weight:700;box-shadow:0 5px 0 rgba(0,0,0,.25)}
   #jumpBtn:active{transform:translateY(3px);box-shadow:0 2px 0 rgba(0,0,0,.25)}
   #resetBtn{pointer-events:auto;position:absolute;right:128px;bottom:100px;width:54px;height:54px;border-radius:50%;background:rgba(15,23,42,.62);color:#fff;font-size:22px}
+  #runBtn{pointer-events:auto;position:absolute;right:128px;bottom:164px;width:54px;height:54px;border-radius:50%;background:rgba(15,23,42,.62);color:#fff;font-size:22px;border:2px solid transparent}
+  #runBtn.on{background:rgba(245,158,11,.92);border-color:#fff}
   #powers{position:absolute;left:10px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;align-items:flex-start;gap:6px}
   #slots{display:flex;flex-direction:column;gap:6px}
   .slot{pointer-events:auto;width:46px;height:46px;border-radius:14px;background:rgba(15,23,42,.62);font-size:25px;color:#fff;border:2px solid transparent;padding:0}
@@ -190,6 +192,7 @@ if(TRK_OFF)window.TRK=function(){};else (function(w,d,s,l,i){w[l]=w[l]||[];w[l].
   <div id="touch">
     <div id="joy"><div id="joyKnob"></div><b class="k-w">w</b><b class="k-a">a</b><b class="k-s">s</b><b class="k-d">d</b></div>
     <button id="resetBtn">↺</button>
+    <button id="runBtn">🏃</button>
     <button id="jumpBtn">PULAR</button>
     <button id="actBtn">⚡</button>
   </div>
@@ -334,13 +337,13 @@ const T = {
       options:"Opções", botsOn:"🤖 Bots: ligados", botsOff:"🤖 Bots: desligados", musicOn:"♫ Música: sim", musicOff:"♫ Música: não",
       play:"JOGAR", cont:"▶ CONTINUAR (Fase {n})", restart:"Recomeçar do início", stage:"Fase", tutorial:"Tutorial",
       themes:["Parquinho","Céu","Gelo","Contas","Floresta","Pedra Gigante","Neon","Lava"],
-      ctrlPc:"<b>PC:</b> WASD/setas andam · Espaço pula · arraste o mouse para girar a câmera · roda = zoom · R volta ao checkpoint · <b>T</b> abre o chat (1-8 manda direto) · M liga/desliga música",
+      ctrlPc:"<b>PC:</b> WASD/setas andam · Espaço pula · Shift corre · arraste o mouse para girar a câmera · roda = zoom · R volta ao checkpoint · <b>T</b> abre o chat (1-8 manda direto) · M liga/desliga música",
       ctrlTouch:"<b>Celular:</b> joystick no lado esquerdo · botão PULAR · arraste o lado direito para girar a câmera",
       mp:"<b>Multiplayer:</b> quem abrir este mesmo link ao mesmo tempo aparece no seu mundo. Encoste correndo em alguém para empurrar! Seus amigos precisam ter acesso ao jogo no Claude.",
       share:"📋 Copiar link", copied:"✅ Link copiado!", waText:"Bora jogar EZ Obby comigo! 🎮",
       players:"Jogadores", you:"você", online:"Online", offline:"Solo", connecting:"Conectando...",
       cp:"✅ Checkpoint!", win:"Você venceu!", again:"Jogar de novo", stay:"Continuar passeando", skip:"⏭ Pular tutorial",
-      time:"Tempo", jump:"PULAR", pushed:"💥 Empurrado!", push:"💥 Empurrão!", botPushed:"🤖 Um bot te empurrou!", hint:"Arraste o mouse para girar · Espaço pula · T = chat · P = pausa",
+      time:"Tempo", jump:"PULAR", pushed:"💥 Empurrado!", push:"💥 Empurrão!", botPushed:"🤖 Um bot te empurrou!", hint:"Arraste o mouse para girar · Espaço pula · Shift corre · T = chat · P = pausa",
       c_hi:"Oi!", c_wait:"Me espera!", c_gg:"GG!", c_go:"Bora!", c_help:"Socorro!", c_pass:"Vou te passar!", c_close:"Quase!", c_thx:"Valeu!", pwLead:"🏃 Você está na frente: pegue outro quadrado só 3 plataformas depois", chat:"💬 Chat", fell:"😭 Ops!", squash:"🪨 Esmagado!",
       ok:"🎉 Acertou!", wrong:"❌ Errou! Tente outra conta", resumed:"▶ Fase {n}",
       s_move:"Use WASD ou as setas para andar\nArraste o mouse para olhar", s_moveT:"Use o joystick para andar\nArraste a direita para olhar",
@@ -354,13 +357,13 @@ const T = {
       options:"Options", botsOn:"🤖 Bots: on", botsOff:"🤖 Bots: off", musicOn:"♫ Music: on", musicOff:"♫ Music: off",
       play:"PLAY", cont:"▶ CONTINUE (Stage {n})", restart:"Start over", stage:"Stage", tutorial:"Tutorial",
       themes:["Playground","Sky","Ice","Math","Forest","Giant Boulder","Neon","Lava"],
-      ctrlPc:"<b>PC:</b> WASD/arrows move · Space jumps · drag the mouse to turn the camera · wheel = zoom · R back to checkpoint · <b>T</b> opens chat (1-8 send directly) · M toggles music",
+      ctrlPc:"<b>PC:</b> WASD/arrows move · Space jumps · Shift runs · drag the mouse to turn the camera · wheel = zoom · R back to checkpoint · <b>T</b> opens chat (1-8 send directly) · M toggles music",
       ctrlTouch:"<b>Phone:</b> joystick on the left · JUMP button · drag the right side to turn the camera",
       mp:"<b>Multiplayer:</b> anyone who opens this same link at the same time shows up in your world. Run into someone to push them! Your friends need access to this game in Claude.",
       share:"📋 Copy link", copied:"✅ Link copied!", waText:"Come play EZ Obby with me! 🎮",
       players:"Players", you:"you", online:"Online", offline:"Solo", connecting:"Connecting...",
       cp:"✅ Checkpoint!", win:"You won!", again:"Play again", stay:"Keep exploring", skip:"⏭ Skip tutorial",
-      time:"Time", jump:"JUMP", pushed:"💥 Pushed!", push:"💥 Push!", botPushed:"🤖 A bot pushed you!", hint:"Drag the mouse to look · Space jumps · T = chat · P = pause",
+      time:"Time", jump:"JUMP", pushed:"💥 Pushed!", push:"💥 Push!", botPushed:"🤖 A bot pushed you!", hint:"Drag the mouse to look · Space jumps · Shift runs · T = chat · P = pause",
       c_hi:"Hi!", c_wait:"Wait for me!", c_gg:"GG!", c_go:"Let's go!", c_help:"Help!", c_pass:"I'm passing you!", c_close:"So close!", c_thx:"Thanks!", pwLead:"🏃 You're in the lead: next box only 3 platforms later", chat:"💬 Chat", fell:"😭 Oops!", squash:"🪨 Squashed!",
       ok:"🎉 Correct!", wrong:"❌ Wrong! Try another one", resumed:"▶ Stage {n}",
       s_move:"Use WASD or arrows to walk\nDrag the mouse to look", s_moveT:"Use the joystick to walk\nDrag the right side to look",
@@ -374,13 +377,13 @@ const T = {
       options:"Opciones", botsOn:"🤖 Bots: sí", botsOff:"🤖 Bots: no", musicOn:"♫ Música: sí", musicOff:"♫ Música: no",
       play:"JUGAR", cont:"▶ CONTINUAR (Fase {n})", restart:"Empezar de nuevo", stage:"Fase", tutorial:"Tutorial",
       themes:["Parque","Cielo","Hielo","Cuentas","Bosque","Roca Gigante","Neón","Lava"],
-      ctrlPc:"<b>PC:</b> WASD/flechas para moverte · Espacio salta · arrastra el ratón para girar la cámara · rueda = zoom · R vuelve al checkpoint · <b>T</b> abre el chat (1-8 envía directo) · M música",
+      ctrlPc:"<b>PC:</b> WASD/flechas para moverte · Espacio salta · Shift corre · arrastra el ratón para girar la cámara · rueda = zoom · R vuelve al checkpoint · <b>T</b> abre el chat (1-8 envía directo) · M música",
       ctrlTouch:"<b>Móvil:</b> joystick a la izquierda · botón SALTAR · arrastra el lado derecho para girar la cámara",
       mp:"<b>Multijugador:</b> quien abra este mismo enlace al mismo tiempo aparece en tu mundo. ¡Choca corriendo con alguien para empujarlo! Tus amigos necesitan acceso al juego en Claude.",
       share:"📋 Copiar enlace", copied:"✅ ¡Enlace copiado!", waText:"¡Ven a jugar EZ Obby conmigo! 🎮",
       players:"Jugadores", you:"tú", online:"En línea", offline:"Solo", connecting:"Conectando...",
       cp:"✅ ¡Checkpoint!", win:"¡Ganaste!", again:"Jugar otra vez", stay:"Seguir paseando", skip:"⏭ Saltar tutorial",
-      time:"Tiempo", jump:"SALTAR", pushed:"💥 ¡Te empujaron!", push:"💥 ¡Empujón!", botPushed:"🤖 ¡Un bot te empujó!", hint:"Arrastra el ratón para mirar · Espacio salta · T = chat · P = pausa",
+      time:"Tiempo", jump:"SALTAR", pushed:"💥 ¡Te empujaron!", push:"💥 ¡Empujón!", botPushed:"🤖 ¡Un bot te empujó!", hint:"Arrastra el ratón para mirar · Espacio salta · Shift corre · T = chat · P = pausa",
       c_hi:"¡Hola!", c_wait:"¡Espérame!", c_gg:"¡GG!", c_go:"¡Vamos!", c_help:"¡Socorro!", c_pass:"¡Te voy a pasar!", c_close:"¡Casi!", c_thx:"¡Gracias!", pwLead:"🏃 Vas primero: otro cuadro solo 3 plataformas después", chat:"💬 Chat", fell:"😭 ¡Ups!", squash:"🪨 ¡Aplastado!",
       ok:"🎉 ¡Correcto!", wrong:"❌ ¡Error! Prueba otra cuenta", resumed:"▶ Fase {n}",
       s_move:"Usa WASD o las flechas para andar\nArrastra el ratón para mirar", s_moveT:"Usa el joystick para andar\nArrastra la derecha para mirar",
@@ -394,19 +397,19 @@ Object.assign(T.pt,{face:"Rosto",f_normal:"🙂 Normal",f_smug:"😏 Deboche",f_
   s_riddle:"🤔 Leia a charada no quadro\ne pule na resposta certa!",s_teacher:"📏 Cuidado com a professora!\nDesvie da régua!",s_play:"🛝 Brinque no parquinho!\nBalanço, gangorra, cama elástica…",
   meme_m67:"6️⃣7️⃣ SIX SEVEN!",meme_m42:"🤓 42 = a resposta de tudo!",meme_straw:"🍓 Oiii, amiguinho!",meme_avo:"🥑 Bora treinar!",meme_sigma:"😎 Farmando aura +1000 ✨",meme_smug:"😏 Hehehe...",
   themes:["Parquinho","Céu","Gelo","Contas","Floresta","Pedra Gigante","Charadas","Professora","Neon","Lava"],
-  ctrlPc:"<b>PC:</b> WASD/setas andam · Espaço pula · arraste o mouse para girar a câmera · roda = zoom · R volta ao checkpoint · <b>T</b> abre o chat (1-8 manda direto) · <b>P</b> pausa · <b>J</b> usa poder · <b>U</b> troca poder · M música"});
+  ctrlPc:"<b>PC:</b> WASD/setas andam · Espaço pula · Shift corre · arraste o mouse para girar a câmera · roda = zoom · R volta ao checkpoint · <b>T</b> abre o chat (1-8 manda direto) · <b>P</b> pausa · <b>J</b> usa poder · <b>U</b> troca poder · M música"});
 Object.assign(T.en,{face:"Face",f_normal:"🙂 Normal",f_smug:"😏 Smug",f_horse:"🐴 Horse",f_smiley:"😃 Big smile",f_sigma:"😎 Sigma",
   paused:"Paused",resume:"▶ Resume",toMenu:"🏠 Menu",pts:"points",ruler:"📏 Ruler smack!",
   s_riddle:"🤔 Read the riddle on the board\nand jump on the right answer!",s_teacher:"📏 Watch out for the teacher!\nDodge the ruler!",s_play:"🛝 Play in the playground!\nSwings, seesaw, trampoline…",
   meme_m67:"6️⃣7️⃣ SIX SEVEN!",meme_m42:"🤓 42 = the answer to everything!",meme_straw:"🍓 Hiii, friend!",meme_avo:"🥑 Let's work out!",meme_sigma:"😎 Farming aura +1000 ✨",meme_smug:"😏 Hehehe...",
   themes:["Playground","Sky","Ice","Math","Forest","Giant Boulder","Riddles","Teacher","Neon","Lava"],
-  ctrlPc:"<b>PC:</b> WASD/arrows move · Space jumps · drag the mouse to turn the camera · wheel = zoom · R back to checkpoint · <b>T</b> opens chat (1-8 send directly) · <b>P</b> pause · <b>J</b> use power · <b>U</b> switch power · M music"});
+  ctrlPc:"<b>PC:</b> WASD/arrows move · Space jumps · Shift runs · drag the mouse to turn the camera · wheel = zoom · R back to checkpoint · <b>T</b> opens chat (1-8 send directly) · <b>P</b> pause · <b>J</b> use power · <b>U</b> switch power · M music"});
 Object.assign(T.es,{face:"Cara",f_normal:"🙂 Normal",f_smug:"😏 Burlón",f_horse:"🐴 Caballo",f_smiley:"😃 Sonrisota",f_sigma:"😎 Sigma",
   paused:"En pausa",resume:"▶ Continuar",toMenu:"🏠 Menú",pts:"puntos",ruler:"📏 ¡Reglazo!",
   s_riddle:"🤔 Lee la adivinanza de la pizarra\n¡y salta en la respuesta correcta!",s_teacher:"📏 ¡Cuidado con la profesora!\n¡Esquiva la regla!",s_play:"🛝 ¡Juega en el parque!\nColumpio, balancín, cama elástica…",
   meme_m67:"6️⃣7️⃣ SIX SEVEN!",meme_m42:"🤓 42 = ¡la respuesta a todo!",meme_straw:"🍓 ¡Holaaa, amiguito!",meme_avo:"🥑 ¡A entrenar!",meme_sigma:"😎 Farmeando aura +1000 ✨",meme_smug:"😏 Jejeje...",
   themes:["Parque","Cielo","Hielo","Cuentas","Bosque","Roca Gigante","Adivinanzas","Profesora","Neón","Lava"],
-  ctrlPc:"<b>PC:</b> WASD/flechas para moverte · Espacio salta · arrastra el ratón para girar la cámara · rueda = zoom · R vuelve al checkpoint · <b>T</b> abre el chat (1-8 envía directo) · <b>P</b> pausa · <b>J</b> usa poder · <b>U</b> cambia poder · M música"});
+  ctrlPc:"<b>PC:</b> WASD/flechas para moverte · Espacio salta · Shift corre · arrastra el ratón para girar la cámara · rueda = zoom · R vuelve al checkpoint · <b>T</b> abre el chat (1-8 envía directo) · <b>P</b> pausa · <b>J</b> usa poder · <b>U</b> cambia poder · M música"});
 Object.assign(T.pt,{g_horse:"🐴 Cavalo",g_smiley:"😃 Sorrisão",pw_cream:"Sorvete direto",pw_choc:"Chocolate teleguiado",shareBig:"📋 Copiar link do multiplayer",
   s_power:"⚡ Quadrados dão PODERES!\nPegue um e aperte J para usar (U troca)",s_powerT:"⚡ Quadrados dão PODERES!\nPegue um e toque no botão roxo ⚡"});
 Object.assign(T.en,{g_horse:"🐴 Horse",g_smiley:"😃 Big smile",pw_cream:"Ice cream shot",pw_choc:"Homing chocolate",shareBig:"📋 Copy multiplayer link",
@@ -1746,6 +1749,9 @@ canvas.addEventListener("pointerdown",onDown);canvas.addEventListener("pointermo
 canvas.addEventListener("pointerup",onUp);canvas.addEventListener("pointercancel",onUp);
 canvas.addEventListener("wheel",e=>{e.preventDefault();dist=Math.max(5,Math.min(18,dist+e.deltaY*0.01));},{passive:false});
 canvas.addEventListener("contextmenu",e=>e.preventDefault());
+// correr: Shift no teclado; no toque, o botão 🏃 liga/desliga
+const RUN=1.3;let runOn=false;
+document.getElementById("runBtn").addEventListener("pointerdown",e=>{e.preventDefault();e.stopPropagation();runOn=!runOn;e.currentTarget.classList.toggle("on",runOn);});
 const jumpBtn=document.getElementById("jumpBtn");
 jumpBtn.addEventListener("pointerdown",e=>{e.preventDefault();touchJump=true;jumpBuf=0.14;});
 ["pointerup","pointercancel","pointerleave"].forEach(ev=>jumpBtn.addEventListener(ev,()=>{touchJump=false;}));
@@ -2620,7 +2626,7 @@ function frame(now){
   if(!riding){
     const steps=Math.ceil(dt/(1/120));const sdt=dt/steps;
     for(let i=0;i<steps;i++){
-      const r=bodyStep(me,sdt,iv.x,iv.z,playing&&jumpBuf>0,jumpHeld(),isTouch?SPEED*1.1:SPEED);
+      const r=bodyStep(me,sdt,iv.x,iv.z,playing&&jumpBuf>0,jumpHeld(),(isTouch?SPEED*1.1:SPEED)*((runOn||keys.ShiftLeft||keys.ShiftRight)?RUN:1));
       if(r.jumped){jumpBuf=0;Snd.play("jump");}
       if(r.die){die();died=true;break;}
       if(r.landed&&r.impact<-14)Snd.play("land");
